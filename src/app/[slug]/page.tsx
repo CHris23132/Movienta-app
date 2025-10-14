@@ -5,8 +5,9 @@ import { notFound } from 'next/navigation';
 // Opening message that will be spoken first
 const OPENING_MESSAGE = "Hello! I know you'd probably rather speak to a live sales representative, so can I please get your phone number? You can expect a call in the next couple of minutes.";
 
-export default async function LandingPage({ params }: { params: { slug: string } }) {
-  const landingPage = await getLandingPageBySlug(params.slug);
+export default async function LandingPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const landingPage = await getLandingPageBySlug(slug);
 
   if (!landingPage) {
     notFound();
