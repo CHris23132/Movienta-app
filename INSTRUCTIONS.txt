@@ -1,0 +1,228 @@
+===============================================
+MOVIENTA - AI AUDIO CHATBOT SYSTEM
+Complete Setup Instructions
+===============================================
+
+✅ SYSTEM COMPLETED!
+
+All components have been built and are ready to use.
+
+===============================================
+QUICK START (3 STEPS)
+===============================================
+
+1. CREATE .env.local FILE
+   Create a file named ".env.local" in the movienta directory with:
+   
+   OPENAI_API_KEY=sk-your-actual-openai-api-key-here
+   
+   Get your OpenAI API key from: https://platform.openai.com/api-keys
+
+2. RUN THE DEV SERVER
+   npm run dev
+
+3. ACCESS THE ADMIN DASHBOARD
+   Open: http://localhost:3000/admin
+   Create your first landing page!
+
+===============================================
+WHAT'S INCLUDED
+===============================================
+
+✅ Firebase Integration (Firestore)
+✅ OpenAI Integration (Whisper STT + GPT-4 + TTS)
+✅ Admin Dashboard (/admin)
+✅ Dynamic Landing Pages (/{slug})
+✅ Voice-Enabled AI Chatbot
+✅ Automatic Phone Number Capture
+✅ Custom AI Prompts per Landing Page
+✅ Real-time Call Tracking in Firebase
+
+===============================================
+HOW IT WORKS
+===============================================
+
+ADMIN SIDE:
+1. Go to /admin
+2. Create a landing page with:
+   - Brand name (generates unique URL)
+   - Hero title and subtitle
+   - Custom AI prompt (what to ask visitors)
+   - Theme color
+3. Share the generated link /{slug}
+
+VISITOR SIDE:
+1. Visit /{slug}
+2. Click "Start Conversation"
+3. AI asks for phone number (automatic)
+4. Visitor speaks their phone number
+5. AI asks follow-up questions based on your custom prompt
+6. All data saved to Firebase "calls" collection
+
+===============================================
+FILE STRUCTURE
+===============================================
+
+movienta/
+├── src/
+│   ├── app/
+│   │   ├── [slug]/page.tsx         # Public landing pages
+│   │   ├── admin/page.tsx          # Admin dashboard
+│   │   ├── api/
+│   │   │   ├── calls/route.ts      # Create call sessions
+│   │   │   ├── chat/route.ts       # AI conversation logic
+│   │   │   ├── landing-pages/      # CRUD operations
+│   │   │   ├── transcribe/route.ts # Speech-to-text
+│   │   │   └── tts/route.ts        # Text-to-speech
+│   ├── components/
+│   │   └── AudioChatbot.tsx        # Voice chat UI
+│   ├── lib/
+│   │   ├── firebase.ts             # Firebase config
+│   │   └── db.ts                   # Database functions
+│   └── types/index.ts              # TypeScript types
+
+===============================================
+FIREBASE COLLECTIONS
+===============================================
+
+landingPages:
+  - slug (unique URL identifier)
+  - brandName
+  - heroTitle, heroSubtitle
+  - customPrompt (AI instructions)
+  - themeColor
+
+calls:
+  - landingPageId (reference)
+  - phoneNumber (captured from voice)
+  - messages[] (conversation history)
+  - startedAt, endedAt
+  - status (active/completed)
+
+===============================================
+TESTING THE SYSTEM
+===============================================
+
+1. Start dev server: npm run dev
+2. Go to: http://localhost:3000/admin
+3. Create a test landing page:
+   - Brand: "Test Company"
+   - Title: "Welcome to Test Company"
+   - Subtitle: "We help businesses succeed"
+   - Prompt: "Ask about their industry, company size, and goals"
+4. Visit: http://localhost:3000/test-company
+5. Click "Start Conversation"
+6. Speak your phone number when prompted
+7. Continue conversation
+8. Check Firebase → calls collection for saved data
+
+===============================================
+IMPORTANT NOTES
+===============================================
+
+⚠️  MICROPHONE ACCESS:
+    - Requires HTTPS in production (or localhost)
+    - Browser will ask for permission
+    - Works best in Chrome/Firefox
+
+⚠️  OPENAI API:
+    - Requires active OpenAI account with credits
+    - Uses: Whisper (STT), GPT-4o-mini (Chat), TTS-1 (Speech)
+    - Monitor usage at: https://platform.openai.com/usage
+
+⚠️  FIREBASE:
+    - Already configured with your project
+    - Update Firestore rules to allow public read/write
+    - Monitor usage in Firebase Console
+
+===============================================
+FIRESTORE SECURITY RULES
+===============================================
+
+Go to Firebase Console → Firestore Database → Rules
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /landingPages/{document} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
+    match /calls/{document} {
+      allow read, write: if true;
+    }
+  }
+}
+
+===============================================
+CUSTOMIZATION
+===============================================
+
+CHANGE OPENING MESSAGE:
+Edit: src/app/[slug]/page.tsx
+Find: OPENING_MESSAGE constant
+
+CHANGE AI VOICE:
+Edit: src/app/api/tts/route.ts
+Options: alloy, echo, fable, onyx, nova, shimmer
+
+ADJUST CONVERSATION LOGIC:
+Edit: src/app/api/chat/route.ts
+
+===============================================
+DEPLOYMENT TO VERCEL
+===============================================
+
+1. Push code to GitHub
+2. Import project in Vercel
+3. Add environment variable:
+   OPENAI_API_KEY = your-key-here
+4. Deploy!
+
+===============================================
+TROUBLESHOOTING
+===============================================
+
+Issue: "Module not found"
+Fix: npm install
+
+Issue: "Microphone not accessible"
+Fix: Use HTTPS or localhost, check browser permissions
+
+Issue: "OpenAI API error"
+Fix: Verify API key in .env.local, check credits
+
+Issue: "Firebase error"
+Fix: Check Firestore security rules
+
+===============================================
+SUPPORT
+===============================================
+
+- Check README.md for detailed documentation
+- Check SETUP.md for step-by-step guide
+- Review browser console for error messages
+
+===============================================
+NEXT STEPS
+===============================================
+
+✨ Add authentication to /admin
+✨ Add email notifications for new calls
+✨ Export call data to CSV
+✨ Integrate with CRM (Salesforce, HubSpot, etc.)
+✨ Add analytics dashboard
+✨ Custom domain configuration
+✨ Multi-language support
+
+===============================================
+
+🎉 Your system is ready to use!
+
+Start with: npm run dev
+
+Visit: http://localhost:3000
+
+===============================================
+
