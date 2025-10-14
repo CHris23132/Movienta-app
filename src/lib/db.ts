@@ -23,6 +23,21 @@ export const createLandingPage = async (data: Omit<LandingPage, 'id' | 'createdA
   return docRef.id;
 };
 
+export const getLandingPagesByUserId = async (userId: string): Promise<LandingPage[]> => {
+  const q = query(collection(db, 'landingPages'), where('userId', '==', userId));
+  const querySnapshot = await getDocs(q);
+  
+  return querySnapshot.docs.map(doc => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      ...data,
+      createdAt: (data.createdAt as Timestamp)?.toDate() || new Date(),
+      updatedAt: (data.updatedAt as Timestamp)?.toDate() || new Date(),
+    } as LandingPage;
+  });
+};
+
 export const getLandingPageBySlug = async (slug: string): Promise<LandingPage | null> => {
   const q = query(collection(db, 'landingPages'), where('slug', '==', slug));
   const querySnapshot = await getDocs(q);
@@ -64,10 +79,11 @@ export const updateLandingPage = async (id: string, data: Partial<LandingPage>) 
 };
 
 // Calls
-export const createCall = async (landingPageId: string): Promise<string> => {
+export const createCall = async (landingPageId: string, userId: string): Promise<string> => {
   try {
     console.log('[DB] Creating call for landing page:', landingPageId);
     const docRef = await addDoc(collection(db, 'calls'), {
+      userId,
       landingPageId,
       messages: [],
       startedAt: serverTimestamp(),
@@ -79,6 +95,21 @@ export const createCall = async (landingPageId: string): Promise<string> => {
     console.error('[DB] Error creating call:', error);
     throw error;
   }
+};
+
+export const getCallsByUserId = async (userId: string): Promise<Call[]> => {
+  const q = query(collection(db, 'calls'), where('userId', '==', userId));
+  const querySnapshot = await getDocs(q);
+  
+  return querySnapshot.docs.map(doc => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      ...data,
+      startedAt: (data.startedAt as Timestamp)?.toDate() || new Date(),
+      endedAt: data.endedAt ? (data.endedAt as Timestamp).toDate() : undefined,
+    } as Call;
+  });
 };
 
 export const updateCall = async (callId: string, data: Partial<Call>) => {
@@ -97,7 +128,7 @@ export const addMessageToCall = async (callId: string, message: Omit<Message, 't
         ...currentMessages,
         {
           ...message,
-          timestamp: serverTimestamp(),
+          timestamp: new Date().toISOString(), // Use ISO string instead of serverTimestamp
         }
       ]
     });

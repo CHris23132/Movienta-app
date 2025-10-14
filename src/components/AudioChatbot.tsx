@@ -5,10 +5,11 @@ import { useState, useRef } from 'react';
 interface AudioChatbotProps {
   landingPageSlug: string;
   landingPageId: string;
+  userId: string;
   openingMessage: string;
 }
 
-export default function AudioChatbot({ landingPageSlug, landingPageId, openingMessage }: AudioChatbotProps) {
+export default function AudioChatbot({ landingPageSlug, landingPageId, userId, openingMessage }: AudioChatbotProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [callId, setCallId] = useState<string | null>(null);
@@ -29,7 +30,7 @@ export default function AudioChatbot({ landingPageSlug, landingPageId, openingMe
       const callResponse = await fetch('/api/calls', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ landingPageId, openingMessage }),
+        body: JSON.stringify({ landingPageId, userId, openingMessage }),
       });
 
       if (!callResponse.ok) {

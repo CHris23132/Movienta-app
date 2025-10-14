@@ -2,8 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { LandingPage } from '@/types';
+import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function AdminDashboard() {
+  const { user, loading: authLoading, signOut } = useAuth();
+  const router = useRouter();
   const [landingPages, setLandingPages] = useState<LandingPage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -18,12 +23,27 @@ export default function AdminDashboard() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
-    fetchLandingPages();
-  }, []);
+    if (!authLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, authLoading, router]);
+
+  useEffect(() => {
+    if (user) {
+      fetchLandingPages();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const fetchLandingPages = async () => {
+    if (!user) return;
+    
     try {
-      const response = await fetch('/api/landing-pages');
+      const response = await fetch('/api/landing-pages', {
+        headers: {
+          'Authorization': `Bearer ${user.uid}`,
+        },
+      });
       if (!response.ok) throw new Error('Failed to fetch landing pages');
       const data = await response.json();
       setLandingPages(data.landingPages);
@@ -35,6 +55,26 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      router.push('/');
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
+  };
+
+  if (authLoading || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -43,7 +83,10 @@ export default function AdminDashboard() {
     try {
       const response = await fetch('/api/landing-pages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.uid}`,
+        },
         body: JSON.stringify(formData),
       });
 
@@ -79,11 +122,30 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Create and manage AI-powered landing pages
-          </p>
+        <div className="mb-8 flex justify-between items-start">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Create and manage AI-powered landing pages
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
+              Logged in as: {user.email}
+            </p>
+          </div>
+          <div className="flex gap-4">
+            <Link
+              href="/calls"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            >
+              View Calls
+            </Link>
+            <button
+              onClick={handleSignOut}
+              className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            >
+              Sign Out
+            </button>
+          </div>
         </div>
 
         {/* Message Display */}

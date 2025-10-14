@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createLandingPage, getAllLandingPages } from '@/lib/db';
+import { createLandingPage, getLandingPagesByUserId } from '@/lib/db';
+import { getUserIdFromHeaders } from '@/lib/firebase-admin';
 
 // Helper function to generate slug from brand name
 function generateSlug(brandName: string): string {
@@ -9,9 +10,18 @@ function generateSlug(brandName: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const landingPages = await getAllLandingPages();
+    const userId = getUserIdFromHeaders(request.headers);
+    
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    const landingPages = await getLandingPagesByUserId(userId);
     return NextResponse.json({ landingPages });
   } catch (error) {
     console.error('Error fetching landing pages:', error);
@@ -24,6 +34,15 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const userId = getUserIdFromHeaders(request.headers);
+    
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     const data = await request.json();
     const { brandName, heroTitle, heroSubtitle, customPrompt, themeColor } = data;
 
@@ -38,6 +57,7 @@ export async function POST(request: NextRequest) {
     const slug = generateSlug(brandName);
 
     const id = await createLandingPage({
+      userId,
       slug,
       brandName,
       heroTitle,

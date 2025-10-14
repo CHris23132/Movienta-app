@@ -2,6 +2,7 @@
 
 export interface LandingPage {
   id: string;
+  userId: string; // Owner's Firebase Auth UID
   slug: string; // Unique URL slug based on brand name
   brandName: string;
   heroTitle: string;
@@ -14,6 +15,7 @@ export interface LandingPage {
 
 export interface Call {
   id: string;
+  userId: string; // Owner's Firebase Auth UID (from landing page)
   landingPageId: string;
   phoneNumber?: string;
   messages: Message[];

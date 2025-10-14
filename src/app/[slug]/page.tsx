@@ -46,6 +46,7 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
           <AudioChatbot
             landingPageSlug={landingPage.slug}
             landingPageId={landingPage.id}
+            userId={landingPage.userId}
             openingMessage={OPENING_MESSAGE}
           />
 

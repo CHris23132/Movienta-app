@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     console.log('Received request body:', body);
     
-    const { landingPageId, openingMessage } = body;
+    const { landingPageId, userId, openingMessage } = body;
 
     if (!landingPageId) {
       console.error('Missing landingPageId');
@@ -16,10 +16,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('Creating call for landing page:', landingPageId);
+    if (!userId) {
+      console.error('Missing userId');
+      return NextResponse.json(
+        { error: 'User ID is required' },
+        { status: 400 }
+      );
+    }
+
+    console.log('Creating call for landing page:', landingPageId, 'User:', userId);
     
     // Create new call
-    const callId = await createCall(landingPageId);
+    const callId = await createCall(landingPageId, userId);
     console.log('Call created with ID:', callId);
 
     // Add opening message
