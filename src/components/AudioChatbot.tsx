@@ -32,7 +32,11 @@ export default function AudioChatbot({ landingPageSlug, landingPageId, openingMe
         body: JSON.stringify({ landingPageId, openingMessage }),
       });
 
-      if (!callResponse.ok) throw new Error('Failed to start call');
+      if (!callResponse.ok) {
+        const errorData = await callResponse.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('API Error:', errorData);
+        throw new Error(errorData.error || 'Failed to start call');
+      }
       
       const { callId: newCallId } = await callResponse.json();
       setCallId(newCallId);

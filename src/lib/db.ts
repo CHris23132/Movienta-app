@@ -65,13 +65,20 @@ export const updateLandingPage = async (id: string, data: Partial<LandingPage>) 
 
 // Calls
 export const createCall = async (landingPageId: string): Promise<string> => {
-  const docRef = await addDoc(collection(db, 'calls'), {
-    landingPageId,
-    messages: [],
-    startedAt: serverTimestamp(),
-    status: 'active',
-  });
-  return docRef.id;
+  try {
+    console.log('[DB] Creating call for landing page:', landingPageId);
+    const docRef = await addDoc(collection(db, 'calls'), {
+      landingPageId,
+      messages: [],
+      startedAt: serverTimestamp(),
+      status: 'active',
+    });
+    console.log('[DB] Call created successfully with ID:', docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error('[DB] Error creating call:', error);
+    throw error;
+  }
 };
 
 export const updateCall = async (callId: string, data: Partial<Call>) => {
