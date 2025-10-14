@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -15,9 +17,9 @@ export default function Home() {
             <a href="#contact" className="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
               Contact
             </a>
-            <a href="/admin" className="bg-foreground text-background px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
+            <Link href="/admin" className="bg-foreground text-background px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
               Admin Dashboard
-            </a>
+            </Link>
           </div>
         </nav>
       </header>
