@@ -49,10 +49,12 @@ OR just push a new commit and it will auto-deploy!
 ### ESLint Errors (All Fixed ✓)
 
 1. **`src/app/not-found.tsx`**
+
    - ❌ Was: `<a href="/">`
    - ✅ Now: `<Link href="/">`
 
 2. **`src/app/page.tsx`**
+
    - ❌ Was: `<a href="/admin">`
    - ✅ Now: `<Link href="/admin">`
 
@@ -96,6 +98,7 @@ A `vercel.json` file has been created with optimal settings:
 ### Security (Required for Production!)
 
 Your current setup is **OPEN** - anyone can:
+
 - ✅ View landing pages (good!)
 - ⚠️ Create landing pages (BAD!)
 - ⚠️ Access all call data (BAD!)
@@ -103,10 +106,12 @@ Your current setup is **OPEN** - anyone can:
 **Before going live, you MUST:**
 
 1. **Add Authentication to Admin Dashboard**
+
    - Use NextAuth.js or Firebase Auth
    - Protect `/admin` route
 
 2. **Update Firestore Security Rules**
+
    - Current: `allow read, write: if true;` (INSECURE!)
    - Needed: Authenticated admin access only
 
@@ -128,7 +133,7 @@ service cloud.firestore {
       allow read: if true;  // Anyone can view
       allow write: if request.auth != null;  // Only logged-in admins
     }
-    
+
     // Calls - public write (for leads), admin read
     match /calls/{document} {
       allow create: if true;  // Anyone can create (lead capture)
@@ -145,11 +150,13 @@ service cloud.firestore {
 ### Check These After Deployment:
 
 1. **Vercel Dashboard**
+
    - Monitor build times
    - Check function execution
    - View logs
 
 2. **OpenAI Dashboard**
+
    - https://platform.openai.com/usage
    - Monitor API usage
    - Set spending limits
@@ -164,15 +171,18 @@ service cloud.firestore {
 ## 💰 Cost Monitoring
 
 ### Vercel (Free Tier):
+
 - ✅ 100GB bandwidth/month
 - ✅ Unlimited deployments
 - ✅ Serverless functions
 
 ### OpenAI:
+
 - ~$0.03-$0.05 per lead captured
 - Set usage limits in OpenAI dashboard
 
 ### Firebase (Free Tier):
+
 - ✅ 50,000 reads/day
 - ✅ 20,000 writes/day
 - ✅ 1GB storage
@@ -217,6 +227,7 @@ npm run build
 ## 🔄 Continuous Deployment
 
 Every time you push to GitHub `main` branch:
+
 1. ✅ Vercel auto-detects the push
 2. ✅ Runs build automatically
 3. ✅ Deploys if successful
@@ -268,6 +279,7 @@ npx vercel --prod
 All code issues are fixed. Your next deployment should succeed!
 
 **Next Steps:**
+
 1. Push your code to GitHub
 2. Add OPENAI_API_KEY to Vercel
 3. Watch your deployment succeed! 🚀
@@ -281,4 +293,3 @@ All code issues are fixed. Your next deployment should succeed!
 - **Firebase Hosting**: https://firebase.google.com/docs/hosting
 
 Your code is production-ready! 🎊
-
