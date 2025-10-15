@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createLandingPage, getLandingPagesByUserId } from '@/lib/db';
+import { createLandingPage, getLandingPagesByUserId } from '@/lib/db-admin';
 import { getUserIdFromHeaders } from '@/lib/firebase-admin';
 
 // Helper function to generate slug from brand name
@@ -12,7 +12,7 @@ function generateSlug(brandName: string): string {
 
 export async function GET(request: NextRequest) {
   try {
-    const userId = getUserIdFromHeaders(request.headers);
+    const userId = await getUserIdFromHeaders(request.headers);
     
     if (!userId) {
       return NextResponse.json(
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const userId = getUserIdFromHeaders(request.headers);
+    const userId = await getUserIdFromHeaders(request.headers);
     
     if (!userId) {
       return NextResponse.json(

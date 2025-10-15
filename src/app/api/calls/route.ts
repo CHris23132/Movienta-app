@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createCall, addMessageToCall } from '@/lib/db';
+import { createCall, addMessageToCall } from '@/lib/db-admin';
 
 export async function POST(request: NextRequest) {
   try {

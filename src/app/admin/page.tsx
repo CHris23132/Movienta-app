@@ -5,6 +5,8 @@ import { LandingPage } from '@/types';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Paywall from '@/components/Paywall';
+import CreditsBanner from '@/components/CreditsBanner';
 
 export default function AdminDashboard() {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -39,9 +41,10 @@ export default function AdminDashboard() {
     if (!user) return;
     
     try {
+      const token = await user.getIdToken();
       const response = await fetch('/api/landing-pages', {
         headers: {
-          'Authorization': `Bearer ${user.uid}`,
+          'Authorization': `Bearer ${token}`,
         },
       });
       if (!response.ok) throw new Error('Failed to fetch landing pages');
@@ -64,28 +67,18 @@ export default function AdminDashboard() {
     }
   };
 
-  if (authLoading || !user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setMessage(null);
 
     try {
+      const token = await user.getIdToken();
       const response = await fetch('/api/landing-pages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.uid}`,
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -118,7 +111,18 @@ export default function AdminDashboard() {
     }
   };
 
-  return (
+  if (authLoading || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const adminContent = (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
@@ -134,6 +138,12 @@ export default function AdminDashboard() {
           </div>
           <div className="flex gap-4">
             <Link
+              href="/credits"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            >
+              Credits
+            </Link>
+            <Link
               href="/calls"
               className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             >
@@ -147,6 +157,9 @@ export default function AdminDashboard() {
             </button>
           </div>
         </div>
+
+        {/* Credits Banner */}
+        <CreditsBanner />
 
         {/* Message Display */}
         {message && (
@@ -326,6 +339,12 @@ export default function AdminDashboard() {
         </div>
       </div>
     </div>
+  );
+
+  return (
+    <Paywall>
+      {adminContent}
+    </Paywall>
   );
 }
 
