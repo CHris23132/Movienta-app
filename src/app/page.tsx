@@ -38,7 +38,7 @@ export default function Home() {
               Create Your Own AI Receptionist Call Agent
             </p>
             <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto">
-              Simple web forms don't work anymore. This voice agent automatically collects the phone number to schedule a call 
+              Simple web forms don&apos;t work anymore. This voice agent automatically collects the phone number to schedule a call 
               and then can provide information on your behalf based on your custom instructions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -68,7 +68,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Custom Page</h3>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Create your own custom styled landing page with your own branding. Match your company's look and feel perfectly.
+                  Create your own custom styled landing page with your own branding. Match your company&apos;s look and feel perfectly.
                 </p>
               </div>
               
@@ -108,7 +108,7 @@ export default function Home() {
               </h2>
               <div className="h-1 w-24 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8"></div>
               <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
-                Don't waste your leads. Get more out of your leads rather than a simple webform or landing page. 
+                Don&apos;t waste your leads. Get more out of your leads rather than a simple webform or landing page. 
                 Send your users to a live call with custom instructions and scripts as well as capture the phone number 
                 right away so that your leads turn into calls and more deals closed.
               </p>
@@ -124,7 +124,7 @@ export default function Home() {
               Create your first AI voice agent in minutes. No credit card required to start.
             </p>
             <Link href="/signup" className="inline-block bg-foreground text-background px-10 py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity shadow-lg">
-              Start Free Trial
+              Get Started
             </Link>
           </div>
         </section>
