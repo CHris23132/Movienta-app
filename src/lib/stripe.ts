@@ -1,19 +1,13 @@
 import Stripe from "stripe";
-import * as admin from "firebase-admin";
+import { adminDb } from "./firebase-admin";
 
 // Initialize Stripe
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-02-24.acacia" as Stripe.LatestApiVersion,
 });
 
-// Initialize Firebase Admin if not already initialized
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-  });
-}
-
-export const db = admin.firestore();
+// Use centralized Firebase Admin instance
+export const db = adminDb;
 
 /**
  * Get or create a Stripe customer for a Firebase user

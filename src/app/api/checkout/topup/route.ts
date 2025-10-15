@@ -1,13 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import * as admin from "firebase-admin";
+import { adminAuth } from "@/lib/firebase-admin";
 import { stripe, getOrCreateCustomer } from "@/lib/stripe";
-
-// Initialize Firebase Admin if not already initialized
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-  });
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,7 +24,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const decoded = await admin.auth().verifyIdToken(idToken);
+    const decoded = await adminAuth.verifyIdToken(idToken);
     const uid = decoded.uid;
     const email = decoded.email || undefined;
 
