@@ -72,6 +72,8 @@ export default function AdminDashboard() {
     setIsSubmitting(true);
     setMessage(null);
 
+    if (!user) return;
+
     try {
       const token = await user.getIdToken();
       const response = await fetch('/api/landing-pages', {

@@ -1,0 +1,14 @@
+# Exclude Firebase Functions from Vercel deployment
+functions/
+
+# Exclude Firebase keys
+src/firebase-keys/
+firebase-keys/
+
+# Exclude local environment
+.env.local
+
+# Exclude development files
+*.log
+.DS_Store
+

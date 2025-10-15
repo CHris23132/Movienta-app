@@ -3,11 +3,11 @@ import * as admin from "firebase-admin";
 import { stripe, getOrCreateCustomer } from "@/lib/stripe";
 
 // Initialize Firebase Admin if not already initialized
-const app = !admin.apps.length 
-  ? admin.initializeApp({
-      credential: admin.credential.applicationDefault(),
-    })
-  : admin.app();
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+  });
+}
 
 export async function POST(req: NextRequest) {
   try {

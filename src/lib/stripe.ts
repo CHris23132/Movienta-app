@@ -3,15 +3,15 @@ import * as admin from "firebase-admin";
 
 // Initialize Stripe
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-06-20",
+  apiVersion: "2025-02-24.acacia" as Stripe.LatestApiVersion,
 });
 
 // Initialize Firebase Admin if not already initialized
-const app = !admin.apps.length 
-  ? admin.initializeApp({
-      credential: admin.credential.applicationDefault(),
-    })
-  : admin.app();
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+  });
+}
 
 export const db = admin.firestore();
 
