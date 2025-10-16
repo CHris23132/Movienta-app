@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Movienta - Your Moving Solution",
+  title: "Movienta - AI Voice Agent",
   description: "Professional moving services made simple",
 };
 
