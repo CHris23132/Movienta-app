@@ -1,5 +1,35 @@
 import Link from 'next/link';
 
+function DriveVideoEmbed() {
+  const src = "https://drive.google.com/file/d/1zu9-Q7uK_bWZfALB0-Zc8INsGbd-JmlX/preview";
+
+  return (
+    <div className="relative w-full max-w-4xl mx-auto mt-12" aria-label="Product teaser video">
+      {/* 16:9 responsive wrapper */}
+      <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+        <iframe
+          src={src}
+          title="Product teaser video"
+          // Make the iframe fill the 16:9 box
+          className="absolute inset-0 h-full w-full rounded-xl shadow-2xl"
+          style={{ border: 0 }}
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
+
+      {/* Optional: text fallback for very old browsers or blocked iframes */}
+      <noscript>
+        <a href={src} target="_blank" rel="noopener noreferrer">
+          Watch the video
+        </a>
+      </noscript>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -49,6 +79,12 @@ export default function Home() {
             <p className="text-sm text-gray-500 dark:text-gray-500">
               🚀 No credit card required • ⚡ Set up in minutes • 📞 Unlimited customization
             </p>
+            
+            {/* Hero Video */}
+            <h2 className="text-3xl md:text-4xl font-bold mt-16 mb-6">
+              See a full product demo
+            </h2>
+            <DriveVideoEmbed />
           </div>
         </section>
 
