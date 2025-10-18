@@ -52,9 +52,14 @@ export default function Home() {
       <main className="flex-1">
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-block bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 px-4 py-2 rounded-full text-sm font-semibold text-blue-700 dark:text-blue-300 mb-6">
-              ✨ Turn Link Clicks into Leads
-            </div>
+            <a 
+              href="https://www.movienta.com/movienta" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full text-base font-bold mb-6 hover:shadow-2xl hover:scale-110 transition-all animate-pulse hover:animate-none shadow-lg"
+            >
+              Try Demo Now
+            </a>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
               Stop Losing Leads
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
