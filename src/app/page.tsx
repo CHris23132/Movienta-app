@@ -56,9 +56,9 @@ export default function Home() {
               ✨ Turn Link Clicks into Leads
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
-              Stop Losing Leads to
+              Stop Losing Leads
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                Boring Web Forms
+                Create AI Voice Agent
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-4 font-medium">
