@@ -1,6 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Configure image domains for Firebase Storage
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+        port: '',
+        pathname: '/v0/b/connect-now-16778.firebasestorage.app/o/**',
+      },
+    ],
+  },
   // Exclude Firebase Functions from build
   webpack: (config, { isServer }) => {
     if (isServer) {

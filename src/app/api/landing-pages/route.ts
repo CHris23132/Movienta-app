@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await request.json();
-    const { brandName, heroTitle, heroSubtitle, customPrompt, themeColor } = data;
+    const { brandName, heroTitle, heroSubtitle, customPrompt, themeColor, logoUrl } = data;
 
     if (!brandName || !heroTitle || !heroSubtitle || !customPrompt) {
       return NextResponse.json(
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     // Generate unique slug
     const slug = generateSlug(brandName);
 
-    const id = await createLandingPage({
+    const landingPageData = {
       userId,
       slug,
       brandName,
@@ -64,7 +64,10 @@ export async function POST(request: NextRequest) {
       heroSubtitle,
       customPrompt,
       themeColor,
-    });
+      logoUrl,
+    };
+
+    const id = await createLandingPage(landingPageData);
 
     return NextResponse.json({ 
       id, 

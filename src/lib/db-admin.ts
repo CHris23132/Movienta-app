@@ -5,11 +5,14 @@ import { FieldValue } from 'firebase-admin/firestore';
 
 // Landing Pages
 export const createLandingPage = async (data: Omit<LandingPage, 'id' | 'createdAt' | 'updatedAt'>) => {
-  const docRef = await adminDb.collection('landingPages').add({
+  const docData = {
     ...data,
     createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp(),
-  });
+  };
+
+  const docRef = await adminDb.collection('landingPages').add(docData);
+  
   return docRef.id;
 };
 
@@ -44,12 +47,14 @@ export const getLandingPageBySlug = async (slug: string): Promise<LandingPage | 
   const doc = snapshot.docs[0];
   const data = doc.data();
   
-  return {
+  const landingPage = {
     id: doc.id,
     ...data,
     createdAt: data.createdAt?.toDate() || new Date(),
     updatedAt: data.updatedAt?.toDate() || new Date(),
   } as LandingPage;
+  
+  return landingPage;
 };
 
 export const getAllLandingPages = async (): Promise<LandingPage[]> => {

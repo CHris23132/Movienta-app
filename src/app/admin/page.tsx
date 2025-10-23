@@ -5,8 +5,10 @@ import { LandingPage } from '@/types';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import Paywall from '@/components/Paywall';
 import CreditsBanner from '@/components/CreditsBanner';
+import { uploadLogo, validateImageFile } from '@/lib/image-upload';
 
 export default function AdminDashboard() {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -20,9 +22,11 @@ export default function AdminDashboard() {
     heroSubtitle: '',
     customPrompt: '',
     themeColor: '#3B82F6',
+    logoFile: null as File | null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -67,6 +71,28 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate the file
+    const validation = validateImageFile(file);
+    if (!validation.valid) {
+      setMessage({ type: 'error', text: validation.error || 'Invalid file' });
+      return;
+    }
+
+    // Update form data
+    setFormData({ ...formData, logoFile: file });
+
+    // Create preview
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setLogoPreview(e.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -75,14 +101,33 @@ export default function AdminDashboard() {
     if (!user) return;
 
     try {
+      let logoUrl = '';
+
+      // Upload logo if provided
+      if (formData.logoFile) {
+        const uploadResult = await uploadLogo(formData.logoFile, user.uid, formData.brandName);
+        if (!uploadResult.success) {
+          setMessage({ type: 'error', text: uploadResult.error || 'Failed to upload logo' });
+          setIsSubmitting(false);
+          return;
+        }
+        logoUrl = uploadResult.url!;
+      }
+
       const token = await user.getIdToken();
+      const requestData = {
+        ...formData,
+        logoUrl,
+        logoFile: undefined, // Don't send the file object
+      };
+      
       const response = await fetch('/api/landing-pages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) throw new Error('Failed to create landing page');
@@ -100,7 +145,9 @@ export default function AdminDashboard() {
         heroSubtitle: '',
         customPrompt: '',
         themeColor: '#3B82F6',
+        logoFile: null,
       });
+      setLogoPreview(null);
       setShowForm(false);
       
       // Refresh list
@@ -255,6 +302,39 @@ export default function AdminDashboard() {
 
               <div>
                 <label className="block text-sm font-medium mb-2">
+                  Logo Image (Optional)
+                </label>
+                <div className="space-y-4">
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={handleLogoChange}
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  />
+                  <p className="text-xs text-gray-500">
+                    Upload a JPEG, PNG, or WebP image. Max size: 2MB. Will be resized to 200px max width/height.
+                  </p>
+                  
+                  {/* Logo Preview */}
+                  {logoPreview && (
+                    <div className="mt-4">
+                      <p className="text-sm font-medium mb-2">Preview:</p>
+                      <div className="inline-block p-2 border border-gray-200 dark:border-gray-700 rounded-lg">
+                        <Image
+                          src={logoPreview}
+                          alt="Logo preview"
+                          width={64}
+                          height={64}
+                          className="h-16 w-auto object-contain"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2">
                   Theme Color
                 </label>
                 <div className="flex items-center gap-4">
@@ -314,7 +394,18 @@ export default function AdminDashboard() {
                     className="border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-blue-500 dark:hover:border-blue-500 transition-colors"
                   >
                     <div className="flex items-start justify-between mb-4">
-                      <h3 className="text-xl font-semibold">{page.brandName}</h3>
+                      <div className="flex items-center gap-3">
+                        {page.logoUrl && (
+                          <Image
+                            src={page.logoUrl}
+                            alt={`${page.brandName} logo`}
+                            width={32}
+                            height={32}
+                            className="h-8 w-auto object-contain"
+                          />
+                        )}
+                        <h3 className="text-xl font-semibold">{page.brandName}</h3>
+                      </div>
                       <div
                         className="w-6 h-6 rounded"
                         style={{ backgroundColor: page.themeColor }}

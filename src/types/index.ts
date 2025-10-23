@@ -9,6 +9,7 @@ export interface LandingPage {
   heroSubtitle: string;
   customPrompt: string; // Instructions for the AI chatbot
   themeColor?: string;
+  logoUrl?: string; // URL to the uploaded logo image
   createdAt: Date;
   updatedAt: Date;
 }

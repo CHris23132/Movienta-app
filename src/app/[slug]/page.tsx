@@ -1,6 +1,7 @@
 import { getLandingPageBySlug } from '@/lib/db';
 import AudioChatbot from '@/components/AudioChatbot';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 
 // Opening message that will be spoken first
 const OPENING_MESSAGE = "Hello! I know you'd probably rather speak to a live sales representative, so can I please get your phone number? You can expect a call in the next couple of minutes.";
@@ -13,6 +14,7 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
     notFound();
   }
 
+
   return (
     <div 
       className="min-h-screen flex flex-col"
@@ -23,8 +25,26 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
       {/* Header */}
       <header className="w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center">
-          <div className="text-2xl font-bold" style={{ color: landingPage.themeColor }}>
-            {landingPage.brandName}
+          <div className="flex items-center gap-3">
+            {landingPage.logoUrl ? (
+              <Image
+                src={landingPage.logoUrl}
+                alt={`${landingPage.brandName} logo`}
+                width={40}
+                height={40}
+                className="h-10 w-auto object-contain"
+                priority
+              />
+            ) : (
+              <div className="h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-gray-500">
+                  {landingPage.brandName.charAt(0).toUpperCase()}
+                </span>
+              </div>
+            )}
+            <div className="text-2xl font-bold" style={{ color: landingPage.themeColor }}>
+              {landingPage.brandName}
+            </div>
           </div>
         </nav>
       </header>
