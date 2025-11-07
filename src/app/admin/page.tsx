@@ -79,10 +79,30 @@ export default function AdminDashboard() {
 <script>
   (function() {
     var iframe = document.createElement('iframe');
+    iframe.id = 'movienta-widget-iframe';
     iframe.src = '${baseUrl}/widget/${slug}';
-    iframe.style.cssText = 'position:fixed;bottom:0;right:0;width:100%;height:100%;border:none;z-index:9999;pointer-events:auto;background:transparent;';
+    iframe.style.cssText = 'position:fixed;bottom:0;right:0;width:112px;height:112px;border:none;z-index:9999;pointer-events:auto;background:transparent;transition:all 0.3s ease;';
     iframe.allow = 'microphone';
     iframe.setAttribute('allowtransparency', 'true');
+    
+    // Listen for widget state changes
+    window.addEventListener('message', function(event) {
+      if (event.data.type === 'movienta-widget-state') {
+        if (event.data.isOpen) {
+          // Widget is open - expand to show sidebar
+          iframe.style.width = '416px';
+          iframe.style.height = '672px';
+          iframe.style.bottom = '0';
+          iframe.style.right = '0';
+        } else {
+          // Widget is closed - shrink to button size
+          iframe.style.width = '112px';
+          iframe.style.height = '112px';
+          iframe.style.bottom = '0';
+          iframe.style.right = '0';
+        }
+      }
+    });
     
     document.body.appendChild(iframe);
   })();

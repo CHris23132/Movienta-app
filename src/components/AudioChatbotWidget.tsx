@@ -39,6 +39,16 @@ export default function AudioChatbotWidget({
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Communicate widget state to parent window for iframe resizing
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.parent !== window) {
+      window.parent.postMessage({ 
+        type: 'movienta-widget-state', 
+        isOpen 
+      }, '*');
+    }
+  }, [isOpen]);
+
   // Initialize call and play opening message
   const startConversation = async () => {
     try {
@@ -208,21 +218,24 @@ export default function AudioChatbotWidget({
     <>
       {/* Floating Chat Button */}
       {!isOpen && (
-        <button
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all z-50 animate-pulse hover:animate-none"
-          style={{ backgroundColor: themeColor }}
-          aria-label="Open chat"
-        >
-          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
-        </button>
+        <div className="fixed inset-0 flex items-end justify-end p-6">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all z-50 animate-pulse hover:animate-none"
+            style={{ backgroundColor: themeColor }}
+            aria-label="Open chat"
+          >
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+          </button>
+        </div>
       )}
 
       {/* Chat Widget */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-96 h-[600px] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50 border border-gray-200 dark:border-gray-800">
+        <div className="fixed inset-0 flex items-end justify-end">
+          <div className="w-96 h-[600px] mb-6 mr-6 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50 border border-gray-200 dark:border-gray-800">
           {/* Header */}
           <div
             className="px-6 py-4 text-white flex items-center justify-between"
@@ -350,6 +363,7 @@ export default function AudioChatbotWidget({
                 </>
               )}
             </div>
+          </div>
           </div>
         </div>
       )}
