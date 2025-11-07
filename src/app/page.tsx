@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import TypeWriter from '@/components/TypeWriter';
 
 function DriveVideoEmbed() {
   const src = "https://drive.google.com/file/d/1zu9-Q7uK_bWZfALB0-Zc8INsGbd-JmlX/preview";
@@ -60,10 +63,16 @@ export default function Home() {
             >
               Try Demo Now
             </a>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
-              Stop Losing Leads
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                Create AI Voice Agent
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight flex flex-col items-center">
+              <span>Create Voice</span>
+              <span className="flex items-center gap-3">
+                <span>Agents For</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                  <TypeWriter 
+                    words={['Leads', 'Sales', 'Support']}
+                    className="inline-block"
+                  />
+                </span>
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-4 font-medium">
