@@ -27,6 +27,8 @@ export default function AdminDashboard() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const [selectedPageForEmbed, setSelectedPageForEmbed] = useState<LandingPage | null>(null);
+  const [embedCopied, setEmbedCopied] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -68,6 +70,33 @@ export default function AdminDashboard() {
       router.push('/');
     } catch (error) {
       console.error('Sign out error:', error);
+    }
+  };
+
+  const getEmbedCode = (slug: string) => {
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+    return `<!-- Movienta AI Voice Agent Widget -->
+<script>
+  (function() {
+    var iframe = document.createElement('iframe');
+    iframe.src = '${baseUrl}/widget/${slug}';
+    iframe.style.cssText = 'position:fixed;bottom:0;right:0;width:100%;height:100%;border:none;z-index:9999;pointer-events:auto;background:transparent;';
+    iframe.allow = 'microphone';
+    iframe.setAttribute('allowtransparency', 'true');
+    
+    document.body.appendChild(iframe);
+  })();
+</script>`;
+  };
+
+  const copyEmbedCode = async (slug: string) => {
+    const embedCode = getEmbedCode(slug);
+    try {
+      await navigator.clipboard.writeText(embedCode);
+      setEmbedCopied(true);
+      setTimeout(() => setEmbedCopied(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy:', error);
     }
   };
 
@@ -414,15 +443,24 @@ export default function AdminDashboard() {
                     <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
                       {page.heroTitle}
                     </p>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-col gap-3">
                       <a
                         href={`/${page.slug}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
                       >
-                        /{page.slug} →
+                        View Landing Page: /{page.slug} →
                       </a>
+                      <button
+                        onClick={() => setSelectedPageForEmbed(page)}
+                        className="flex items-center gap-2 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-sm font-medium transition-colors"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        Get Embed Code
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -430,6 +468,152 @@ export default function AdminDashboard() {
             )}
           </div>
         </div>
+
+        {/* Embed Code Modal */}
+        {selectedPageForEmbed && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold">Embed Code</h2>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Add this AI Voice Agent to any website
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setSelectedPageForEmbed(null);
+                    setEmbedCopied(false);
+                  }}
+                  className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="p-6 space-y-6">
+                {/* Preview */}
+                <div>
+                  <h3 className="font-semibold mb-3 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    Preview
+                  </h3>
+                  <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      <strong>{selectedPageForEmbed.brandName}</strong> - AI Voice Agent Widget
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      A floating chat button will appear in the bottom-right corner of your website. 
+                      Visitors can click to start a voice conversation with your AI agent.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Widget URL */}
+                <div>
+                  <h3 className="font-semibold mb-3 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                    Widget URL
+                  </h3>
+                  <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                    <code className="text-sm break-all">
+                      {typeof window !== 'undefined' ? window.location.origin : ''}/widget/{selectedPageForEmbed.slug}
+                    </code>
+                  </div>
+                </div>
+
+                {/* Embed Code */}
+                <div>
+                  <h3 className="font-semibold mb-3 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                    Embed Code
+                  </h3>
+                  <div className="relative">
+                    <pre className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-xs border border-gray-700">
+                      <code>{getEmbedCode(selectedPageForEmbed.slug)}</code>
+                    </pre>
+                    <button
+                      onClick={() => copyEmbedCode(selectedPageForEmbed.slug)}
+                      className={`absolute top-4 right-4 px-4 py-2 rounded-lg font-medium transition-all ${
+                        embedCopied
+                          ? 'bg-green-600 text-white'
+                          : 'bg-blue-600 hover:bg-blue-700 text-white'
+                      }`}
+                    >
+                      {embedCopied ? (
+                        <span className="flex items-center gap-2">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                          Copied!
+                        </span>
+                      ) : (
+                        'Copy Code'
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Instructions */}
+                <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-6 border border-blue-200 dark:border-blue-900/30">
+                  <h3 className="font-semibold mb-3 text-blue-900 dark:text-blue-100">
+                    📋 How to Install
+                  </h3>
+                  <ol className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
+                    <li className="flex gap-3">
+                      <span className="font-bold">1.</span>
+                      <span>Copy the embed code above</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="font-bold">2.</span>
+                      <span>Paste it before the closing <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">&lt;/body&gt;</code> tag on your website</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="font-bold">3.</span>
+                      <span>The AI voice agent will appear as a floating chat button on your site</span>
+                    </li>
+                  </ol>
+                  <div className="mt-4 pt-4 border-t border-blue-200 dark:border-blue-800">
+                    <p className="text-xs text-blue-700 dark:text-blue-300">
+                      <strong>Note:</strong> The widget requires microphone permissions to work. 
+                      Make sure your website is served over HTTPS for the best experience.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6 border-t border-gray-200 dark:border-gray-800 flex justify-end gap-3">
+                <button
+                  onClick={() => {
+                    setSelectedPageForEmbed(null);
+                    setEmbedCopied(false);
+                  }}
+                  className="px-6 py-2 border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                >
+                  Close
+                </button>
+                <button
+                  onClick={() => copyEmbedCode(selectedPageForEmbed.slug)}
+                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  {embedCopied ? 'Copied!' : 'Copy Embed Code'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
