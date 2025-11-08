@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import TypeWriter from '@/components/TypeWriter';
 
 function DriveVideoEmbed() {
@@ -93,6 +94,82 @@ export default function Home() {
             <p className="text-sm text-gray-500 dark:text-gray-500">
               🚀 No credit card required • ⚡ Set up in minutes • 📞 Unlimited customization
             </p>
+
+            {/* How to Use Section */}
+            <div className="mt-20 mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+                How to Use Movienta AI Agents:
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                {/* Option 1: Embedded Code */}
+                <div className="space-y-6">
+                  <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-blue-200 dark:border-blue-900/30 shadow-lg">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                        1
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-2">
+                          Add the Movienta Agent to your existing website (Preferred)
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Simple embedded code snippet works on any website builder including Shopify, Wix, WordPress, Squarespace and custom built websites
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl">
+                    <Image
+                      src="/images/Embeded-eg.png"
+                      alt="Embedded AI agent example on website"
+                      width={600}
+                      height={400}
+                      className="w-full h-auto"
+                      priority
+                    />
+                  </div>
+                </div>
+
+                {/* Option 2: Hosted Landing Page */}
+                <div className="space-y-6">
+                  <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-purple-200 dark:border-purple-900/30 shadow-lg">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                        2
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold mb-2">
+                          Send traffic to a landing page we host for you
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Get a beautiful, branded landing page hosted on our platform with your custom AI voice agent. Send traffic to this hosted custom configured landing page and convert clicks into high quality leads.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl">
+                    <Image
+                      src="/images/hosted-page.png"
+                      alt="Hosted landing page example"
+                      width={600}
+                      height={400}
+                      className="w-full h-auto"
+                      priority
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Subtitle */}
+              <div className="mt-12 text-center max-w-4xl mx-auto">
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-900/30">
+                  <p className="text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+                    When you sign up for Movienta, setting up an AI agent is as easy as making a Facebook post. You get both the <strong>embedded code</strong> for your custom agent as well as the <strong>custom landing page</strong> we host for you.
+                  </p>
+                </div>
+              </div>
+            </div>
             
             {/* Hero Video */}
             <h2 className="text-3xl md:text-4xl font-bold mt-16 mb-6">
