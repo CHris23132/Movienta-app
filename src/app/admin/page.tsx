@@ -278,14 +278,14 @@ export default function AdminDashboard() {
             onClick={() => setShowForm(!showForm)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
           >
-            {showForm ? 'Cancel' : '+ Create New Landing Page'}
+            {showForm ? 'Cancel' : '+ Create Voice Agent'}
           </button>
         </div>
 
         {/* Create Form */}
         {showForm && (
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 mb-8 border border-gray-200 dark:border-gray-800">
-            <h2 className="text-2xl font-bold mb-6">Create Landing Page</h2>
+            <h2 className="text-2xl font-bold mb-6">Create Voice Agent</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium mb-2">
@@ -405,7 +405,7 @@ export default function AdminDashboard() {
                   disabled={isSubmitting}
                   className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-medium transition-colors disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? 'Creating...' : 'Create Landing Page'}
+                  {isSubmitting ? 'Creating...' : 'Create Voice Agent'}
                 </button>
                 <button
                   type="button"

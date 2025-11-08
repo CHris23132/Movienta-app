@@ -19,6 +19,7 @@ export interface Call {
   userId: string; // Owner's Firebase Auth UID (from landing page)
   landingPageId: string;
   phoneNumber?: string;
+  clientName?: string;
   messages: Message[];
   startedAt: Date;
   endedAt?: Date;

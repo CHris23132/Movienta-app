@@ -10,7 +10,7 @@ export default async function WidgetPage({ params }: { params: Promise<{ slug: s
     notFound();
   }
 
-  const OPENING_MESSAGE = "Hello! I know you'd probably rather speak to a live sales representative, so can I please get your phone number? You can expect a call in the next couple of minutes.";
+  const OPENING_MESSAGE = "Hello! I know you'd probably rather speak to a live sales representative, so can I please get your name and phone number? You can expect a call in the next couple of minutes.";
 
   return (
     <AudioChatbotWidget

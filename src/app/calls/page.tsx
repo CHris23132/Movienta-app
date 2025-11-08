@@ -131,10 +131,20 @@ export default function CallsPage() {
                   >
                     <div className="flex justify-between items-start mb-4">
                       <div>
-                        <div className="flex items-center gap-3 mb-2">
+                        <div className="flex items-center gap-3 mb-2 flex-wrap">
+                          {call.clientName && (
+                            <span className="text-lg font-semibold">
+                              👤 {call.clientName}
+                            </span>
+                          )}
                           {call.phoneNumber && (
                             <span className="text-lg font-semibold">
                               📞 {call.phoneNumber}
+                            </span>
+                          )}
+                          {!call.clientName && !call.phoneNumber && (
+                            <span className="text-lg font-semibold text-gray-500">
+                              No contact info yet
                             </span>
                           )}
                           <span className={`px-2 py-1 text-xs rounded-full ${
@@ -197,10 +207,16 @@ export default function CallsPage() {
 
         {/* Stats */}
         {calls.length > 0 && (
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-800">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Calls</p>
               <p className="text-3xl font-bold">{calls.length}</p>
+            </div>
+            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-800">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Names Captured</p>
+              <p className="text-3xl font-bold">
+                {calls.filter(c => c.clientName).length}
+              </p>
             </div>
             <div className="bg-white dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-800">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Phone Numbers Captured</p>

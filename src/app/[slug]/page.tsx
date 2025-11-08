@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 
 // Opening message that will be spoken first
-const OPENING_MESSAGE = "Hello! I know you'd probably rather speak to a live sales representative, so can I please get your phone number? You can expect a call in the next couple of minutes.";
+const OPENING_MESSAGE = "Hello! I know you'd probably rather speak to a live sales representative, so can I please get your name and phone number? You can expect a call in the next couple of minutes.";
 
 export default async function LandingPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

@@ -142,6 +142,15 @@ export const updateCallPhoneNumber = async (callId: string, phoneNumber: string)
   });
 };
 
+export const updateCallClientInfo = async (callId: string, phoneNumber: string, clientName?: string) => {
+  const docRef = doc(db, 'calls', callId);
+  const updateData: { phoneNumber: string; clientName?: string } = { phoneNumber };
+  if (clientName) {
+    updateData.clientName = clientName;
+  }
+  await updateDoc(docRef, updateData);
+};
+
 export const getCall = async (callId: string): Promise<Call | null> => {
   const docRef = doc(db, 'calls', callId);
   const docSnap = await getDoc(docRef);
