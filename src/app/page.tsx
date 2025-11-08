@@ -4,16 +4,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import TypeWriter from '@/components/TypeWriter';
 
-function DriveVideoEmbed() {
-  const src = "https://drive.google.com/file/d/1zu9-Q7uK_bWZfALB0-Zc8INsGbd-JmlX/preview";
-
+function DriveVideoEmbed({ src, title }: { src: string; title: string }) {
   return (
-    <div className="relative w-full max-w-4xl mx-auto mt-12" aria-label="Product teaser video">
+    <div className="relative w-full" aria-label={title}>
       {/* 16:9 responsive wrapper */}
       <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
         <iframe
           src={src}
-          title="Product teaser video"
+          title={title}
           // Make the iframe fill the 16:9 box
           className="absolute inset-0 h-full w-full rounded-xl shadow-2xl"
           style={{ border: 0 }}
@@ -98,7 +96,7 @@ export default function Home() {
             {/* How to Use Section */}
             <div className="mt-20 mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-                How to Use Movienta AI Agents:
+                How to Use Movienta AI Agents
               </h2>
 
               <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
@@ -171,11 +169,36 @@ export default function Home() {
               </div>
             </div>
             
-            {/* Hero Video */}
-            <h2 className="text-3xl md:text-4xl font-bold mt-16 mb-6">
-              See a full product demo
-            </h2>
-            <DriveVideoEmbed />
+            {/* Demo Videos */}
+            <div className="mt-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+                See a full product demo
+              </h2>
+              
+              <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+                {/* Landing Page Demo */}
+                <div className="space-y-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-center">
+                    Demo For The Landing Page Hosted For You
+                  </h3>
+                  <DriveVideoEmbed 
+                    src="https://drive.google.com/file/d/1zu9-Q7uK_bWZfALB0-Zc8INsGbd-JmlX/preview"
+                    title="Landing Page Demo"
+                  />
+                </div>
+
+                {/* Embedded Agent Demo */}
+                <div className="space-y-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-center">
+                    Demo For The Embedded AI Agent For Your Current Website
+                  </h3>
+                  <DriveVideoEmbed 
+                    src="https://drive.google.com/file/d/1lLBEsJlQgFv0O4a4YgetSJvCxVeKkw8F/preview"
+                    title="Embedded Agent Demo"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
