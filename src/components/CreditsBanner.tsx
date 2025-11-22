@@ -15,15 +15,6 @@ export default function CreditsBanner() {
   const [creditsSummary, setCreditsSummary] = useState<CreditsSummary | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (user) {
-      fetchCreditsSummary();
-      // Refresh every 30 seconds
-      const interval = setInterval(fetchCreditsSummary, 30000);
-      return () => clearInterval(interval);
-    }
-  }, [user]);
-
   const fetchCreditsSummary = async () => {
     if (!user) return;
 
@@ -45,6 +36,16 @@ export default function CreditsBanner() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      fetchCreditsSummary();
+      // Refresh every 30 seconds
+      const interval = setInterval(fetchCreditsSummary, 30000);
+      return () => clearInterval(interval);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   if (!user || loading) {
     return null;

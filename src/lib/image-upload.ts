@@ -91,7 +91,7 @@ export async function uploadLogo(
     let blobToUpload: Blob;
     try {
       blobToUpload = await optimizeImage(file);
-    } catch (error) {
+    } catch {
       blobToUpload = file;
     }
 

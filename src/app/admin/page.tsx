@@ -6,7 +6,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import Paywall from '@/components/Paywall';
+// ARCHIVED: Paywall commented out for free mode
+// import Paywall from '@/components/Paywall';
 // ARCHIVED: Credits banner commented out for free mode (was showing confusing "no credits" message)
 // import CreditsBanner from '@/components/CreditsBanner';
 import { uploadLogo, validateImageFile } from '@/lib/image-upload';

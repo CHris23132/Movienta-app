@@ -32,6 +32,7 @@ export default function CreditsPage() {
     if (user) {
       fetchCreditsSummary();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const fetchCreditsSummary = async () => {
