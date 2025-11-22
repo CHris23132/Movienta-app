@@ -8,9 +8,16 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'firebasestorage.googleapis.com',
         port: '',
-        pathname: '/v0/b/connect-now-16778.firebasestorage.app/o/**',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.firebasestorage.app',
+        port: '',
+        pathname: '/**',
       },
     ],
+    unoptimized: false, // Keep optimization enabled, but allow all Firebase Storage URLs
   },
   // Exclude Firebase Functions from build
   webpack: (config, { isServer }) => {

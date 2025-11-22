@@ -7,7 +7,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import Paywall from '@/components/Paywall';
-import CreditsBanner from '@/components/CreditsBanner';
+// ARCHIVED: Credits banner commented out for free mode (was showing confusing "no credits" message)
+// import CreditsBanner from '@/components/CreditsBanner';
 import { uploadLogo, validateImageFile } from '@/lib/image-upload';
 
 export default function AdminDashboard() {
@@ -256,8 +257,8 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Credits Banner */}
-        <CreditsBanner />
+        {/* ARCHIVED: Credits Banner - Commented out for free mode */}
+        {/* <CreditsBanner /> */}
 
         {/* Message Display */}
         {message && (
@@ -638,10 +639,23 @@ export default function AdminDashboard() {
     </div>
   );
 
-  return (
-    <Paywall>
-      {adminContent}
-    </Paywall>
-  );
+  // ============================================
+  // ARCHIVED: FREE MODE ENABLED
+  // ============================================
+  // Paywall check is temporarily disabled.
+  // The app is now free to use. Paywall component
+  // is modified to always grant access.
+  // To re-enable: Uncomment Paywall wrapper below.
+  // ============================================
+
+  // ARCHIVED: Original paywall protection (kept for future use)
+  // return (
+  //   <Paywall>
+  //     {adminContent}
+  //   </Paywall>
+  // );
+
+  // FREE MODE: Direct access without paywall
+  return adminContent;
 }
 

@@ -1,5 +1,25 @@
 'use client';
 
+/**
+ * ============================================
+ * PAYWALL COMPONENT - ARCHIVED FOR FREE MODE
+ * ============================================
+ * 
+ * This component is currently configured for FREE MODE.
+ * All subscription/payment checks are bypassed, allowing
+ * full access to the app without payment.
+ * 
+ * All original subscription/credit checking code is preserved
+ * in comments for easy re-enablement in the future.
+ * 
+ * TO RE-ENABLE SUBSCRIPTIONS:
+ * 1. Uncomment the archived code sections marked with "ARCHIVED"
+ * 2. Remove or comment out the "FREE MODE" sections
+ * 3. Restore the Paywall wrapper in admin/page.tsx
+ * 
+ * ============================================
+ */
+
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -25,41 +45,60 @@ export default function Paywall({ children, onAccessGranted }: PaywallProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // ============================================
+  // ARCHIVED: FREE MODE ENABLED
+  // ============================================
+  // Subscription/payment checks are temporarily disabled.
+  // The app is now free to use. All subscription/credit code
+  // remains intact below for future re-enablement.
+  // To re-enable: Uncomment the checks below and restore
+  // the access validation logic.
+  // ============================================
+
   useEffect(() => {
+    // ARCHIVED: Free mode - always grant access immediately
+    // Original code commented out:
+    // if (user) {
+    //   fetchCreditsSummary();
+    // }
+    
+    // Free mode: Grant access immediately
     if (user) {
-      fetchCreditsSummary();
-    }
-  }, [user]);
-
-  const fetchCreditsSummary = async () => {
-    if (!user) return;
-
-    try {
-      const token = await user.getIdToken();
-      const response = await fetch('/api/credits/summary', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch credits');
-      }
-
-      const data = await response.json();
-      setCreditsSummary(data);
-      
-      // Check if user has access
-      if (data.hasSubscription || data.credits > 0) {
-        onAccessGranted?.();
-      }
-    } catch (error) {
-      console.error('Error fetching credits:', error);
-      setError('Failed to load subscription status');
-    } finally {
+      onAccessGranted?.();
       setLoading(false);
     }
-  };
+  }, [user, onAccessGranted]);
+
+  // ARCHIVED: Original credit check function (kept for future use)
+  // const fetchCreditsSummary = async () => {
+  //   if (!user) return;
+
+  //   try {
+  //     const token = await user.getIdToken();
+  //     const response = await fetch('/api/credits/summary', {
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`,
+  //       },
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch credits');
+  //     }
+
+  //     const data = await response.json();
+  //     setCreditsSummary(data);
+      
+  //     // Check if user has access
+  //     if (data.hasSubscription || data.credits > 0) {
+  //       onAccessGranted?.();
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching credits:', error);
+  //     setError('Failed to load subscription status');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleSubscribe = async () => {
     if (!user) return;
@@ -125,23 +164,45 @@ export default function Paywall({ children, onAccessGranted }: PaywallProps) {
     }
   };
 
+  // ARCHIVED: Free mode - skip loading and access checks
+  // Original code commented out:
+  // if (loading) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
+  //       <div className="text-center">
+  //         <div className="inline-block w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+  //         <p className="mt-4 text-gray-600 dark:text-gray-400">Checking subscription status...</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  // ARCHIVED: Original access check (kept for future use)
+  // if (creditsSummary && (creditsSummary.hasSubscription || creditsSummary.credits > 0)) {
+  //   return <>{children}</>;
+  // }
+
+  // FREE MODE: Always show content (bypass paywall)
+  if (!loading) {
+    return <>{children}</>;
+  }
+
+  // Loading state (should rarely show in free mode)
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
+      <div className="min-h-screen flex items-center justify-center relative z-10">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Checking subscription status...</p>
+          <div className="inline-block w-8 h-8 border-4 border-white/30 border-t-blue-600 rounded-full animate-spin"></div>
+          <p className="mt-4 text-white">Loading...</p>
         </div>
       </div>
     );
   }
 
-  // User has access - show content
-  if (creditsSummary && (creditsSummary.hasSubscription || creditsSummary.credits > 0)) {
-    return <>{children}</>;
-  }
-
-  // Show paywall
+  // ARCHIVED: Original paywall display (kept for future use)
+  // This entire section is commented out for free mode
+  // To re-enable: Uncomment this return statement and comment out the free mode return above
+  /*
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
       <div className="max-w-4xl w-full">
@@ -278,5 +339,9 @@ export default function Paywall({ children, onAccessGranted }: PaywallProps) {
       </div>
     </div>
   );
+  */
+  
+  // FREE MODE: This should never be reached, but added as fallback
+  return <>{children}</>;
 }
 
