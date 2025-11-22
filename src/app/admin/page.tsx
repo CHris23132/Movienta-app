@@ -211,45 +211,45 @@ export default function AdminDashboard() {
 
   if (authLoading || !user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center relative z-10">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+          <div className="inline-block w-8 h-8 border-4 border-white/30 border-t-blue-600 rounded-full animate-spin"></div>
+          <p className="mt-4 text-white">Loading...</p>
         </div>
       </div>
     );
   }
 
   const adminContent = (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="mb-8 flex justify-between items-start">
           <div>
-            <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
-            <p className="text-gray-600 dark:text-gray-400">
+            <h1 className="text-4xl font-bold mb-2 text-white">Admin Dashboard</h1>
+            <p className="text-white/80">
               Create and manage AI-powered landing pages
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
+            <p className="text-sm text-white/60 mt-1">
               Logged in as: {user.email}
             </p>
           </div>
           <div className="flex gap-4">
             <Link
               href="/credits"
-              className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              className="px-4 py-2 border border-white/20 rounded-lg font-medium hover:bg-white/10 transition-colors text-white"
             >
               Credits
             </Link>
             <Link
               href="/calls"
-              className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              className="px-4 py-2 border border-white/20 rounded-lg font-medium hover:bg-white/10 transition-colors text-white"
             >
               View Calls
             </Link>
             <button
               onClick={handleSignOut}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              className="px-4 py-2 border border-white/20 rounded-lg font-medium hover:bg-white/10 transition-colors text-white"
             >
               Sign Out
             </button>
@@ -264,8 +264,8 @@ export default function AdminDashboard() {
           <div
             className={`mb-6 p-4 rounded-lg ${
               message.type === 'success'
-                ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400'
-                : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400'
+                ? 'bg-green-900/30 border border-green-400/30 text-green-300'
+                : 'bg-red-900/30 border border-red-400/30 text-red-300'
             }`}
           >
             {message.text}
@@ -284,48 +284,48 @@ export default function AdminDashboard() {
 
         {/* Create Form */}
         {showForm && (
-          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 mb-8 border border-gray-200 dark:border-gray-800">
-            <h2 className="text-2xl font-bold mb-6">Create Voice Agent</h2>
+          <div className="bg-white/10 backdrop-blur-sm rounded-xl shadow-lg p-6 mb-8 border border-white/20">
+            <h2 className="text-2xl font-bold mb-6 text-white">Create Voice Agent</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium mb-2">
-                  Brand Name <span className="text-red-500">*</span>
+                <label className="block text-sm font-medium mb-2 text-white">
+                  Brand Name <span className="text-red-400">*</span>
                 </label>
                 <input
                   type="text"
                   value={formData.brandName}
                   onChange={(e) => setFormData({ ...formData, brandName: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800"
+                  className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/10 backdrop-blur-sm text-white placeholder:text-white/50"
                   placeholder="e.g., Acme Corp"
                   required
                 />
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-white/60">
                   This will be used to generate the URL slug
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">
-                  Hero Title <span className="text-red-500">*</span>
+                <label className="block text-sm font-medium mb-2 text-white">
+                  Hero Title <span className="text-red-400">*</span>
                 </label>
                 <input
                   type="text"
                   value={formData.heroTitle}
                   onChange={(e) => setFormData({ ...formData, heroTitle: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800"
+                  className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/10 backdrop-blur-sm text-white placeholder:text-white/50"
                   placeholder="e.g., Welcome to Our Service"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">
-                  Hero Subtitle <span className="text-red-500">*</span>
+                <label className="block text-sm font-medium mb-2 text-white">
+                  Hero Subtitle <span className="text-red-400">*</span>
                 </label>
                 <textarea
                   value={formData.heroSubtitle}
                   onChange={(e) => setFormData({ ...formData, heroSubtitle: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800"
+                  className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/10 backdrop-blur-sm text-white placeholder:text-white/50"
                   placeholder="e.g., We're here to help you with..."
                   rows={3}
                   required
@@ -333,24 +333,24 @@ export default function AdminDashboard() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">
-                  AI Chatbot Custom Prompt <span className="text-red-500">*</span>
+                <label className="block text-sm font-medium mb-2 text-white">
+                  AI Chatbot Custom Prompt <span className="text-red-400">*</span>
                 </label>
                 <textarea
                   value={formData.customPrompt}
                   onChange={(e) => setFormData({ ...formData, customPrompt: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800"
+                  className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/10 backdrop-blur-sm text-white placeholder:text-white/50"
                   placeholder="e.g., Ask about their moving needs, preferred dates, and any special requirements..."
                   rows={5}
                   required
                 />
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-white/60">
                   Instructions for the AI chatbot on what information to gather from visitors
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">
+                <label className="block text-sm font-medium mb-2 text-white">
                   Logo Image (Optional)
                 </label>
                 <div className="space-y-4">
@@ -358,17 +358,17 @@ export default function AdminDashboard() {
                     type="file"
                     accept="image/jpeg,image/png,image/webp"
                     onChange={handleLogoChange}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    className="w-full px-4 py-2 border border-white/20 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/10 backdrop-blur-sm text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-700"
                   />
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-white/60">
                     Upload a JPEG, PNG, or WebP image. Max size: 2MB. Will be resized to 200px max width/height.
                   </p>
                   
                   {/* Logo Preview */}
                   {logoPreview && (
                     <div className="mt-4">
-                      <p className="text-sm font-medium mb-2">Preview:</p>
-                      <div className="inline-block p-2 border border-gray-200 dark:border-gray-700 rounded-lg">
+                      <p className="text-sm font-medium mb-2 text-white">Preview:</p>
+                      <div className="inline-block p-2 border border-white/20 rounded-lg bg-white/5">
                         <Image
                           src={logoPreview}
                           alt="Logo preview"
@@ -383,7 +383,7 @@ export default function AdminDashboard() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">
+                <label className="block text-sm font-medium mb-2 text-white">
                   Theme Color
                 </label>
                 <div className="flex items-center gap-4">
@@ -391,9 +391,9 @@ export default function AdminDashboard() {
                     type="color"
                     value={formData.themeColor}
                     onChange={(e) => setFormData({ ...formData, themeColor: e.target.value })}
-                    className="w-20 h-10 border border-gray-300 dark:border-gray-700 rounded cursor-pointer"
+                    className="w-20 h-10 border border-white/20 rounded cursor-pointer bg-white/10"
                   />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                  <span className="text-sm text-white/80">
                     {formData.themeColor}
                   </span>
                 </div>
@@ -410,7 +410,7 @@ export default function AdminDashboard() {
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="border border-gray-300 dark:border-gray-700 px-6 py-2 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  className="border border-white/20 px-6 py-2 rounded-lg font-medium hover:bg-white/10 transition-colors text-white"
                 >
                   Cancel
                 </button>
@@ -420,18 +420,18 @@ export default function AdminDashboard() {
         )}
 
         {/* Landing Pages List */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl shadow-lg border border-white/20">
           <div className="p-6">
-            <h2 className="text-2xl font-bold mb-6">Your Landing Pages</h2>
+            <h2 className="text-2xl font-bold mb-6 text-white">Your Landing Pages</h2>
             
             {isLoading ? (
               <div className="text-center py-12">
-                <div className="inline-block w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
-                <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+                <div className="inline-block w-8 h-8 border-4 border-white/30 border-t-blue-600 rounded-full animate-spin"></div>
+                <p className="mt-4 text-white/80">Loading...</p>
               </div>
             ) : landingPages.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-white/80">
                   No landing pages yet. Create your first one!
                 </p>
               </div>
@@ -440,7 +440,7 @@ export default function AdminDashboard() {
                 {landingPages.map((page) => (
                   <div
                     key={page.id}
-                    className="border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-blue-500 dark:hover:border-blue-500 transition-colors"
+                    className="border border-white/20 rounded-lg p-6 hover:border-blue-400 transition-colors bg-white/5 backdrop-blur-sm"
                   >
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
@@ -453,14 +453,14 @@ export default function AdminDashboard() {
                             className="h-8 w-auto object-contain"
                           />
                         )}
-                        <h3 className="text-xl font-semibold">{page.brandName}</h3>
+                        <h3 className="text-xl font-semibold text-white">{page.brandName}</h3>
                       </div>
                       <div
                         className="w-6 h-6 rounded"
                         style={{ backgroundColor: page.themeColor }}
                       ></div>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                    <p className="text-white/70 text-sm mb-4">
                       {page.heroTitle}
                     </p>
                     <div className="flex flex-col gap-3">
@@ -468,13 +468,13 @@ export default function AdminDashboard() {
                         href={`/${page.slug}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
+                        className="text-blue-400 hover:text-blue-300 hover:underline text-sm font-medium transition-colors"
                       >
                         View Landing Page: /{page.slug} →
                       </a>
                       <button
                         onClick={() => setSelectedPageForEmbed(page)}
-                        className="flex items-center gap-2 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-sm font-medium transition-colors"
+                        className="flex items-center gap-2 text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -492,11 +492,11 @@ export default function AdminDashboard() {
         {/* Embed Code Modal */}
         {selectedPageForEmbed && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-white/20">
+              <div className="p-6 border-b border-white/20 flex items-center justify-between">
                 <div>
-                  <h2 className="text-2xl font-bold">Embed Code</h2>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  <h2 className="text-2xl font-bold text-white">Embed Code</h2>
+                  <p className="text-sm text-white/70 mt-1">
                     Add this AI Voice Agent to any website
                   </p>
                 </div>
@@ -505,7 +505,7 @@ export default function AdminDashboard() {
                     setSelectedPageForEmbed(null);
                     setEmbedCopied(false);
                   }}
-                  className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                  className="text-white/70 hover:text-white transition-colors"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -516,18 +516,18 @@ export default function AdminDashboard() {
               <div className="p-6 space-y-6">
                 {/* Preview */}
                 <div>
-                  <h3 className="font-semibold mb-3 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <h3 className="font-semibold mb-3 flex items-center gap-2 text-white">
+                    <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
                     Preview
                   </h3>
-                  <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                      <strong>{selectedPageForEmbed.brandName}</strong> - AI Voice Agent Widget
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                    <p className="text-sm text-white/80 mb-2">
+                      <strong className="text-white">{selectedPageForEmbed.brandName}</strong> - AI Voice Agent Widget
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-white/60">
                       A floating chat button will appear in the bottom-right corner of your website. 
                       Visitors can click to start a voice conversation with your AI agent.
                     </p>
@@ -536,14 +536,14 @@ export default function AdminDashboard() {
 
                 {/* Widget URL */}
                 <div>
-                  <h3 className="font-semibold mb-3 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <h3 className="font-semibold mb-3 flex items-center gap-2 text-white">
+                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                     </svg>
                     Widget URL
                   </h3>
-                  <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
-                    <code className="text-sm break-all">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                    <code className="text-sm break-all text-white/90">
                       {typeof window !== 'undefined' ? window.location.origin : ''}/widget/{selectedPageForEmbed.slug}
                     </code>
                   </div>
@@ -551,14 +551,14 @@ export default function AdminDashboard() {
 
                 {/* Embed Code */}
                 <div>
-                  <h3 className="font-semibold mb-3 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <h3 className="font-semibold mb-3 flex items-center gap-2 text-white">
+                    <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                     </svg>
                     Embed Code
                   </h3>
                   <div className="relative">
-                    <pre className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-xs border border-gray-700">
+                    <pre className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto text-xs border border-white/20">
                       <code>{getEmbedCode(selectedPageForEmbed.slug)}</code>
                     </pre>
                     <button
@@ -584,40 +584,40 @@ export default function AdminDashboard() {
                 </div>
 
                 {/* Instructions */}
-                <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-6 border border-blue-200 dark:border-blue-900/30">
-                  <h3 className="font-semibold mb-3 text-blue-900 dark:text-blue-100">
+                <div className="bg-blue-900/30 backdrop-blur-sm rounded-lg p-6 border border-blue-400/30">
+                  <h3 className="font-semibold mb-3 text-white">
                     📋 How to Install
                   </h3>
-                  <ol className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
+                  <ol className="space-y-2 text-sm text-white/90">
                     <li className="flex gap-3">
-                      <span className="font-bold">1.</span>
+                      <span className="font-bold text-white">1.</span>
                       <span>Copy the embed code above</span>
                     </li>
                     <li className="flex gap-3">
-                      <span className="font-bold">2.</span>
-                      <span>Paste it before the closing <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">&lt;/body&gt;</code> tag on your website</span>
+                      <span className="font-bold text-white">2.</span>
+                      <span>Paste it before the closing <code className="bg-white/20 px-1 rounded text-white">&lt;/body&gt;</code> tag on your website</span>
                     </li>
                     <li className="flex gap-3">
-                      <span className="font-bold">3.</span>
+                      <span className="font-bold text-white">3.</span>
                       <span>The AI voice agent will appear as a floating chat button on your site</span>
                     </li>
                   </ol>
-                  <div className="mt-4 pt-4 border-t border-blue-200 dark:border-blue-800">
-                    <p className="text-xs text-blue-700 dark:text-blue-300">
-                      <strong>Note:</strong> The widget requires microphone permissions to work. 
+                  <div className="mt-4 pt-4 border-t border-blue-400/30">
+                    <p className="text-xs text-white/80">
+                      <strong className="text-white">Note:</strong> The widget requires microphone permissions to work. 
                       Make sure your website is served over HTTPS for the best experience.
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="p-6 border-t border-gray-200 dark:border-gray-800 flex justify-end gap-3">
+              <div className="p-6 border-t border-white/20 flex justify-end gap-3">
                 <button
                   onClick={() => {
                     setSelectedPageForEmbed(null);
                     setEmbedCopied(false);
                   }}
-                  className="px-6 py-2 border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  className="px-6 py-2 border border-white/20 rounded-lg font-medium hover:bg-white/10 transition-colors text-white"
                 >
                   Close
                 </button>

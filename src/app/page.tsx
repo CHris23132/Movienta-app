@@ -34,13 +34,13 @@ function DriveVideoEmbed({ src, title }: { src: string; title: string }) {
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative z-10">
       {/* Header/Navigation */}
-      <header className="w-full border-b border-gray-200 dark:border-gray-800">
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="text-2xl font-bold text-foreground">Movienta</div>
-          <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm font-medium hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
+      <header className="w-full border-b border-white/20 backdrop-blur-sm bg-gradient-to-b from-white/5 to-transparent">
+        <nav className="w-full px-8 sm:px-12 lg:px-20 xl:px-32 h-20 flex items-center justify-between">
+          <div className="text-2xl font-bold text-white">Movienta</div>
+          <div className="flex items-center gap-6">
+            <Link href="/login" className="text-sm font-medium transition-colors hover:text-white" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
               Sign In
             </Link>
             <Link href="/admin" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all">
@@ -52,17 +52,18 @@ export default function Home() {
 
       {/* Hero Section */}
       <main className="flex-1">
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-          <div className="text-center max-w-4xl mx-auto">
+        <section className="w-full px-8 sm:px-12 lg:px-20 xl:px-32 py-20 md:py-32 lg:py-40">
+          <div className="text-center max-w-6xl mx-auto">
             <a 
               href="https://www.movienta.com/movienta" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full text-base font-bold mb-6 hover:shadow-2xl hover:scale-110 transition-all animate-pulse hover:animate-none shadow-lg"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-3 rounded-full text-base font-bold mb-6 hover:shadow-2xl hover:scale-110 transition-all animate-pulse hover:animate-none shadow-lg"
+              style={{ color: '#a5b4fc' }}
             >
               Try Demo Now
             </a>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight flex flex-col items-center">
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight flex flex-col items-center text-white">
               <span>Create Voice</span>
               <span className="flex items-center gap-3">
                 <span>Agents For</span>
@@ -74,10 +75,10 @@ export default function Home() {
                 </span>
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-4 font-medium">
+            <p className="text-xl md:text-2xl mb-4 font-medium" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
               Launch Your AI Voice Agent in 5 Minutes
             </p>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-10 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg mb-10 max-w-3xl mx-auto leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
               Your visitors want to <strong>talk</strong>, not type. Our AI voice agent captures phone numbers instantly, 
               qualifies leads automatically, and books calls 24/7 - while you focus on closing deals.
             </p>
@@ -85,39 +86,39 @@ export default function Home() {
               <Link href="/admin" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all flex items-center justify-center gap-2">
                 Start Free Now <span className="text-2xl">→</span>
               </Link>
-              <Link href="/signup" className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-10 py-4 rounded-xl font-semibold text-lg hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all">
+              <Link href="/signup" className="border-2 border-white px-10 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-all" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
                 See How It Works
               </Link>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-500">
+            <p className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               🚀 No credit card required • ⚡ Set up in minutes • 📞 Unlimited customization
             </p>
 
             {/* How to Use Section */}
-            <div className="mt-20 mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+            <div className="mt-32 mb-24">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-20 text-center text-white">
                 How to Use Movienta AI Agents
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-10 lg:gap-16 w-full">
                 {/* Option 1: Embedded Code */}
                 <div className="space-y-6">
-                  <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-blue-200 dark:border-blue-900/30 shadow-lg">
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 lg:p-10 border-2 border-white/20 shadow-xl hover:border-white/30 transition-all">
+                    <div className="flex items-start gap-5 mb-4">
+                      <div className="flex-shrink-0 w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl lg:text-2xl shadow-lg">
                         1
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold mb-2">
+                        <h3 className="text-xl lg:text-2xl font-bold mb-3 text-white">
                           Add the Movienta Agent to your existing website (Preferred)
                         </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                        <p className="text-sm lg:text-base" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
                           Simple embedded code snippet works on any website builder including Shopify, Wix, WordPress, Squarespace and custom built websites
                         </p>
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl">
+                  <div className="rounded-2xl overflow-hidden border border-white/20 shadow-2xl hover:shadow-3xl transition-shadow">
                     <Image
                       src="/images/Embeded-eg.png"
                       alt="Embedded AI agent example on website"
@@ -131,22 +132,22 @@ export default function Home() {
 
                 {/* Option 2: Hosted Landing Page */}
                 <div className="space-y-6">
-                  <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-purple-200 dark:border-purple-900/30 shadow-lg">
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 lg:p-10 border-2 border-white/20 shadow-xl hover:border-white/30 transition-all">
+                    <div className="flex items-start gap-5 mb-4">
+                      <div className="flex-shrink-0 w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl lg:text-2xl shadow-lg">
                         2
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold mb-2">
+                        <h3 className="text-xl lg:text-2xl font-bold mb-3 text-white">
                           Send traffic to a landing page we host for you
                         </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                        <p className="text-sm lg:text-base" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
                           Get a beautiful, branded landing page hosted on our platform with your custom AI voice agent. Send traffic to this hosted custom configured landing page and convert clicks into high quality leads.
                         </p>
                       </div>
                     </div>
                   </div>
-                  <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl">
+                  <div className="rounded-2xl overflow-hidden border border-white/20 shadow-2xl hover:shadow-3xl transition-shadow">
                     <Image
                       src="/images/hosted-page.png"
                       alt="Hosted landing page example"
@@ -160,9 +161,9 @@ export default function Home() {
               </div>
 
               {/* Bottom Subtitle */}
-              <div className="mt-12 text-center max-w-4xl mx-auto">
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-900/30">
-                  <p className="text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed">
+              <div className="mt-20 text-center w-full">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-10 lg:p-12 border border-white/20 shadow-xl max-w-5xl mx-auto">
+                  <p className="text-lg md:text-xl lg:text-2xl leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
                     When you sign up for Movienta, setting up an AI agent is as easy as making a Facebook post. You get both the <strong>embedded code</strong> for your custom agent as well as the <strong>custom landing page</strong> we host for you.
                   </p>
                 </div>
@@ -170,15 +171,15 @@ export default function Home() {
             </div>
             
             {/* Demo Videos */}
-            <div className="mt-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+            <div className="mt-32">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-20 text-center text-white">
                 See a full product demo
               </h2>
               
-              <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-10 lg:gap-16 w-full">
                 {/* Landing Page Demo */}
                 <div className="space-y-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-center">
+                  <h3 className="text-xl md:text-2xl font-bold text-center text-white">
                     Demo For The Landing Page Hosted For You
                   </h3>
                   <DriveVideoEmbed 
@@ -189,7 +190,7 @@ export default function Home() {
 
                 {/* Embedded Agent Demo */}
                 <div className="space-y-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-center">
+                  <h3 className="text-xl md:text-2xl font-bold text-center text-white">
                     Demo For The Embedded AI Agent For Your Current Website
                   </h3>
                   <DriveVideoEmbed 
@@ -203,45 +204,45 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="bg-gray-50 dark:bg-gray-900/50 py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Why Businesses Choose Movienta</h2>
-            <p className="text-center text-xl text-gray-600 dark:text-gray-400 mb-16 max-w-3xl mx-auto">
+        <section id="features" className="py-32 lg:py-40">
+          <div className="w-full px-8 sm:px-12 lg:px-20 xl:px-32">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-8 text-white">Why Businesses Choose Movienta</h2>
+            <p className="text-center text-xl lg:text-2xl mb-24 max-w-4xl mx-auto" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               Transform every visitor into a qualified lead with intelligent voice conversations
             </p>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-background p-8 rounded-xl border-2 border-blue-100 dark:border-blue-900/30 hover:border-blue-300 dark:hover:border-blue-700 transition-all hover:shadow-xl">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 shadow-lg">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="grid md:grid-cols-3 gap-8 lg:gap-12 w-full">
+              <div className="bg-white/10 backdrop-blur-sm p-8 lg:p-10 rounded-2xl border-2 border-white/20 hover:border-white/40 transition-all hover:shadow-2xl hover:-translate-y-1">
+                <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                  <svg className="w-10 h-10 lg:w-12 lg:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Your Brand, Your Way</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+                <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-white">Your Brand, Your Way</h3>
+                <p className="text-base lg:text-lg leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
                   Create stunning, branded landing pages in minutes. No designer needed - just your vision brought to life with custom styling that converts.
                 </p>
               </div>
               
-              <div className="bg-background p-8 rounded-xl border-2 border-purple-100 dark:border-purple-900/30 hover:border-purple-300 dark:hover:border-purple-700 transition-all hover:shadow-xl">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 shadow-lg">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-white/10 backdrop-blur-sm p-8 lg:p-10 rounded-2xl border-2 border-white/20 hover:border-white/40 transition-all hover:shadow-2xl hover:-translate-y-1">
+                <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                  <svg className="w-10 h-10 lg:w-12 lg:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold mb-3">5-Minute Setup</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+                <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-white">5-Minute Setup</h3>
+                <p className="text-base lg:text-lg leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
                   Just type your instructions in plain English. No coding. No complexity. Your AI agent learns your business and starts qualifying leads immediately.
                 </p>
               </div>
               
-              <div className="bg-background p-8 rounded-xl border-2 border-green-100 dark:border-green-900/30 hover:border-green-300 dark:hover:border-green-700 transition-all hover:shadow-xl">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-6 shadow-lg">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-white/10 backdrop-blur-sm p-8 lg:p-10 rounded-2xl border-2 border-white/20 hover:border-white/40 transition-all hover:shadow-2xl hover:-translate-y-1">
+                <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                  <svg className="w-10 h-10 lg:w-12 lg:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Never Miss a Lead</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+                <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-white">Never Miss a Lead</h3>
+                <p className="text-base lg:text-lg leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
                   Auto-capture phone numbers, transcribe conversations, and qualify leads 24/7. Get detailed transcripts so you can close deals faster.
                 </p>
               </div>
@@ -250,38 +251,38 @@ export default function Home() {
         </section>
 
         {/* Value Proposition Section */}
-        <section className="py-20 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950/20">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+        <section className="py-32 lg:py-40">
+          <div className="w-full px-8 sm:px-12 lg:px-20 xl:px-32">
+            <div className="text-center mb-24">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-10 leading-tight text-white">
                 The Problem with Traditional Lead Capture
               </h2>
-              <div className="h-1 w-32 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-10"></div>
+              <div className="h-1 w-40 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
             </div>
-            <div className="grid md:grid-cols-2 gap-12 mb-16">
-              <div className="bg-red-50 dark:bg-red-950/20 p-8 rounded-2xl border-2 border-red-200 dark:border-red-900/30">
-                <div className="text-4xl mb-4">❌</div>
-                <h3 className="text-2xl font-bold mb-4 text-red-700 dark:text-red-400">Web Forms</h3>
-                <ul className="space-y-3 text-gray-700 dark:text-gray-300">
-                  <li className="flex gap-3"><span className="text-red-500">•</span> <span>95% of visitors leave without converting</span></li>
-                  <li className="flex gap-3"><span className="text-red-500">•</span> <span>Leads are cold and unqualified</span></li>
-                  <li className="flex gap-3"><span className="text-red-500">•</span> <span>No personal connection or engagement</span></li>
-                  <li className="flex gap-3"><span className="text-red-500">•</span> <span>Hours spent on follow-up calls</span></li>
+            <div className="grid md:grid-cols-2 gap-10 lg:gap-16 mb-24 w-full max-w-6xl mx-auto">
+              <div className="bg-white/10 backdrop-blur-sm p-8 lg:p-10 rounded-2xl border-2 border-white/20 hover:border-red-400/30 transition-all hover:shadow-xl">
+                <div className="text-5xl mb-6">❌</div>
+                <h3 className="text-2xl lg:text-3xl font-bold mb-6 text-white">Web Forms</h3>
+                <ul className="space-y-4 text-lg" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                  <li className="flex gap-3"><span className="text-red-400 text-xl">•</span> <span>95% of visitors leave without converting</span></li>
+                  <li className="flex gap-3"><span className="text-red-400 text-xl">•</span> <span>Leads are cold and unqualified</span></li>
+                  <li className="flex gap-3"><span className="text-red-400 text-xl">•</span> <span>No personal connection or engagement</span></li>
+                  <li className="flex gap-3"><span className="text-red-400 text-xl">•</span> <span>Hours spent on follow-up calls</span></li>
                 </ul>
               </div>
-              <div className="bg-green-50 dark:bg-green-950/20 p-8 rounded-2xl border-2 border-green-200 dark:border-green-900/30">
-                <div className="text-4xl mb-4">✅</div>
-                <h3 className="text-2xl font-bold mb-4 text-green-700 dark:text-green-400">Movienta AI</h3>
-                <ul className="space-y-3 text-gray-700 dark:text-gray-300">
-                  <li className="flex gap-3"><span className="text-green-500">•</span> <span>5x higher conversion rates</span></li>
-                  <li className="flex gap-3"><span className="text-green-500">•</span> <span>Pre-qualified, ready-to-buy leads</span></li>
-                  <li className="flex gap-3"><span className="text-green-500">•</span> <span>Human-like voice conversations</span></li>
-                  <li className="flex gap-3"><span className="text-green-500">•</span> <span>Close deals faster with less effort</span></li>
+              <div className="bg-white/10 backdrop-blur-sm p-8 lg:p-10 rounded-2xl border-2 border-white/20 hover:border-green-400/30 transition-all hover:shadow-xl">
+                <div className="text-5xl mb-6">✅</div>
+                <h3 className="text-2xl lg:text-3xl font-bold mb-6 text-white">Movienta AI</h3>
+                <ul className="space-y-4 text-lg" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                  <li className="flex gap-3"><span className="text-green-400 text-xl">•</span> <span>5x higher conversion rates</span></li>
+                  <li className="flex gap-3"><span className="text-green-400 text-xl">•</span> <span>Pre-qualified, ready-to-buy leads</span></li>
+                  <li className="flex gap-3"><span className="text-green-400 text-xl">•</span> <span>Human-like voice conversations</span></li>
+                  <li className="flex gap-3"><span className="text-green-400 text-xl">•</span> <span>Close deals faster with less effort</span></li>
                 </ul>
               </div>
             </div>
             <div className="text-center">
-              <p className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-8">
+              <p className="text-2xl md:text-3xl font-bold mb-8 text-white">
                 Stop losing 95% of your traffic. Start converting today.
               </p>
               <Link href="/admin" className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-12 py-5 rounded-xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition-all">
@@ -292,9 +293,9 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-700 relative overflow-hidden">
+        <section className="py-32 lg:py-40 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-700 relative overflow-hidden">
           <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,transparent,black)]"></div>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <div className="w-full px-8 sm:px-12 lg:px-20 xl:px-32 text-center relative z-10">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
               Ready to 5x Your Lead Conversion?
             </h2>
@@ -337,12 +338,12 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 dark:bg-black border-t border-gray-800 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
+      <footer className="border-t border-white/20 py-20 lg:py-24">
+        <div className="w-full px-8 sm:px-12 lg:px-20 xl:px-32">
+              <div className="grid md:grid-cols-4 gap-8 lg:gap-12 mb-12">
             <div className="md:col-span-2">
               <div className="text-3xl font-bold mb-4 text-white">Movienta</div>
-              <p className="text-gray-400 mb-6 text-lg leading-relaxed">
+              <p className="mb-6 text-lg leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                 Transform your website visitors into qualified leads with AI-powered voice agents. 
                 No coding required, set up in minutes.
               </p>
@@ -353,13 +354,13 @@ export default function Home() {
             <div>
               <h3 className="text-white font-semibold mb-4 text-lg">Product</h3>
               <div className="flex flex-col gap-3">
-                <a href="#features" className="text-gray-400 hover:text-white transition-colors">
+                <a href="#features" className="transition-colors" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                   Features
                 </a>
-                <Link href="/admin" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/admin" className="transition-colors" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                   Dashboard
                 </Link>
-                <Link href="/signup" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/signup" className="transition-colors" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                   Pricing
                 </Link>
               </div>
@@ -367,20 +368,20 @@ export default function Home() {
             <div>
               <h3 className="text-white font-semibold mb-4 text-lg">Company</h3>
               <div className="flex flex-col gap-3">
-                <Link href="/login" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/login" className="transition-colors" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                   Sign In
                 </Link>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="#" className="transition-colors" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                   Privacy Policy
                 </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="#" className="transition-colors" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                   Terms of Service
                 </a>
               </div>
             </div>
           </div>
-          <div className="border-t border-gray-800 pt-8 text-center">
-            <p className="text-gray-500 text-sm">
+          <div className="border-t border-white/20 pt-8 text-center">
+            <p className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
               © 2025 Movienta. All rights reserved. Built for businesses that want to convert more leads.
             </p>
           </div>

@@ -99,33 +99,33 @@ export default function CallsPage() {
 
   if (authLoading || !user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-950">
+      <div className="min-h-screen flex items-center justify-center relative z-10">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+          <div className="inline-block w-8 h-8 border-4 border-white/30 border-t-blue-600 rounded-full animate-spin"></div>
+          <p className="mt-4 text-white">Loading...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="h-screen bg-white dark:bg-gray-950 flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col overflow-hidden relative z-10">
       {/* Top Navigation Bar */}
-      <div className="flex-shrink-0 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+      <div className="flex-shrink-0 border-b border-white/20 bg-white/10 backdrop-blur-sm">
         <div className="px-6 py-4 flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Conversations</h1>
+            <h1 className="text-2xl font-bold text-white">Conversations</h1>
           </div>
           <div className="flex gap-3">
             <Link
               href="/admin"
-              className="px-4 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+              className="px-4 py-2 text-sm border border-white/20 rounded-lg font-medium hover:bg-white/10 transition-colors text-white"
             >
               ← Admin
             </Link>
             <button
               onClick={handleSignOut}
-              className="px-4 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+              className="px-4 py-2 text-sm border border-white/20 rounded-lg font-medium hover:bg-white/10 transition-colors text-white"
             >
               Sign Out
             </button>
@@ -143,16 +143,16 @@ export default function CallsPage() {
       {/* Main Content Area */}
       <div className="flex-1 flex overflow-hidden min-h-0">
         {/* Left Sidebar - Conversations List */}
-        <div className="w-80 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 flex flex-col min-h-0">
+        <div className="w-80 border-r border-white/20 bg-white/10 backdrop-blur-sm flex flex-col min-h-0">
           {/* Filters */}
-          <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-800">
+          <div className="flex-shrink-0 p-4 border-b border-white/20">
             <div className="flex gap-2 mb-4">
               <button 
                 onClick={() => setFilter('all')}
                 className={`px-3 py-1.5 text-sm font-medium rounded transition-colors ${
                   filter === 'all' 
-                    ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400' 
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                    ? 'text-blue-400 border-b-2 border-blue-400' 
+                    : 'text-white/70 hover:text-white'
                 }`}
               >
                 All
@@ -161,8 +161,8 @@ export default function CallsPage() {
                 onClick={() => setFilter('unread')}
                 className={`px-3 py-1.5 text-sm font-medium rounded transition-colors ${
                   filter === 'unread' 
-                    ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400' 
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                    ? 'text-blue-400 border-b-2 border-blue-400' 
+                    : 'text-white/70 hover:text-white'
                 }`}
               >
                 Unread
@@ -176,14 +176,14 @@ export default function CallsPage() {
                 placeholder="Search conversations..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                className="w-full pl-10 pr-4 py-2 border border-white/20 rounded-lg text-sm bg-white/10 backdrop-blur-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <svg className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="absolute left-3 top-2.5 w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
             
-            <div className="mt-3 text-xs text-gray-500 dark:text-gray-500 uppercase font-semibold">
+            <div className="mt-3 text-xs text-white/60 uppercase font-semibold">
               {filteredCalls.length} Results
             </div>
           </div>
@@ -196,7 +196,7 @@ export default function CallsPage() {
               </div>
             ) : filteredCalls.length === 0 ? (
               <div className="p-6 text-center">
-                <p className="text-gray-500 dark:text-gray-400 text-sm">
+                <p className="text-white/70 text-sm">
                   {calls.length === 0 ? 'No calls yet' : 'No matching conversations'}
                 </p>
               </div>
@@ -206,8 +206,8 @@ export default function CallsPage() {
                   <button
                     key={call.id}
                     onClick={() => setSelectedCall(call)}
-                    className={`w-full p-4 border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-left ${
-                      selectedCall?.id === call.id ? 'bg-blue-50 dark:bg-blue-900/20 border-l-4 border-l-blue-600' : ''
+                    className={`w-full p-4 border-b border-white/20 hover:bg-white/10 transition-colors text-left ${
+                      selectedCall?.id === call.id ? 'bg-blue-900/30 border-l-4 border-l-blue-400' : ''
                     }`}
                   >
                     <div className="flex gap-3">
@@ -221,26 +221,26 @@ export default function CallsPage() {
                       {/* Content */}
                       <div className="flex-1 min-w-0">
                         <div className="flex justify-between items-start mb-1">
-                          <h3 className="font-semibold text-sm text-gray-900 dark:text-white truncate">
+                          <h3 className="font-semibold text-sm text-white truncate">
                             {call.clientName || 'Unknown'}
                           </h3>
-                          <span className="text-xs text-gray-500 dark:text-gray-400 ml-2 flex-shrink-0">
+                          <span className="text-xs text-white/60 ml-2 flex-shrink-0">
                             {formatDate(call.startedAt)}
                           </span>
                         </div>
                         {call.phoneNumber && (
-                          <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">
+                          <p className="text-xs text-white/70 mb-1">
                             {call.phoneNumber}
                           </p>
                         )}
-                        <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
+                        <p className="text-xs text-white/60 truncate">
                           {getMessagePreview(call)}
                         </p>
                         <div className="flex items-center gap-2 mt-2">
                           <span className={`inline-block w-2 h-2 rounded-full ${
-                            call.status === 'active' ? 'bg-green-500' : 'bg-gray-400'
+                            call.status === 'active' ? 'bg-green-400' : 'bg-white/40'
                           }`}></span>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                          <span className="text-xs text-white/60">
                             {call.messages.length} messages
                           </span>
                         </div>
@@ -327,11 +327,11 @@ export default function CallsPage() {
                           <div className={`rounded-2xl px-4 py-3 ${
                             msg.role === 'user'
                               ? 'bg-blue-600 text-white'
-                              : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700'
+                              : 'bg-gray-700 text-white'
                           }`}>
                             <p className="text-sm leading-relaxed">{msg.content}</p>
                           </div>
-                          <div className={`mt-1 text-xs text-gray-400 dark:text-gray-500 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
+                          <div className={`mt-1 text-xs text-white/50 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
                             {typeof msg.timestamp === 'string' 
                               ? new Date(msg.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
                               : msg.timestamp?.toLocaleTimeString ? msg.timestamp.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : ''}

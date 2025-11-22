@@ -125,30 +125,30 @@ export default function CreditsPage() {
 
   if (authLoading || !user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center relative z-10">
         <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+          <div className="inline-block w-8 h-8 border-4 border-white/30 border-t-blue-600 rounded-full animate-spin"></div>
+          <p className="mt-4 text-white">Loading...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">
             <Link
               href="/admin"
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+              className="text-white/70 hover:text-white transition-colors"
             >
               ← Back to Dashboard
             </Link>
           </div>
-          <h1 className="text-4xl font-bold mb-2">Credits & Subscription</h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <h1 className="text-4xl font-bold mb-2 text-white">Credits & Subscription</h1>
+          <p className="text-white/80">
             Manage your subscription and credit balance
           </p>
         </div>
@@ -160,8 +160,8 @@ export default function CreditsPage() {
         )}
 
         {/* Current Status */}
-        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8 mb-8 border border-gray-200 dark:border-gray-800">
-          <h2 className="text-2xl font-bold mb-6">Current Status</h2>
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl shadow-lg p-8 mb-8 border border-white/20">
+          <h2 className="text-2xl font-bold mb-6 text-white">Current Status</h2>
           
           {loading ? (
             <div className="text-center py-8">
@@ -187,34 +187,34 @@ export default function CreditsPage() {
 
               <div className={`p-6 rounded-lg border ${
                 creditsSummary?.hasSubscription
-                  ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
-                  : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
+                  ? 'bg-green-900/30 border-green-400/30'
+                  : 'bg-white/10 border-white/20'
               }`}>
                 <div className="flex items-center gap-3 mb-2">
                   <svg className={`w-6 h-6 ${
                     creditsSummary?.hasSubscription 
-                      ? 'text-green-600 dark:text-green-400' 
-                      : 'text-gray-400'
+                      ? 'text-green-400' 
+                      : 'text-white/60'
                   }`} fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   <h3 className={`text-lg font-semibold ${
                     creditsSummary?.hasSubscription 
-                      ? 'text-green-900 dark:text-green-100' 
-                      : 'text-gray-900 dark:text-gray-100'
+                      ? 'text-green-100' 
+                      : 'text-white'
                   }`}>Subscription</h3>
                 </div>
                 <p className={`text-3xl font-bold ${
                   creditsSummary?.hasSubscription 
-                    ? 'text-green-600 dark:text-green-400' 
-                    : 'text-gray-500 dark:text-gray-400'
+                    ? 'text-green-400' 
+                    : 'text-white/60'
                 }`}>
                   {creditsSummary?.hasSubscription ? 'Active' : 'Inactive'}
                 </p>
                 <p className={`text-sm mt-1 ${
                   creditsSummary?.hasSubscription 
-                    ? 'text-green-700 dark:text-green-300' 
-                    : 'text-gray-500 dark:text-gray-400'
+                    ? 'text-green-300' 
+                    : 'text-white/60'
                 }`}>
                   {creditsSummary?.hasSubscription ? 'Monthly subscription' : 'No active subscription'}
                 </p>
@@ -226,45 +226,45 @@ export default function CreditsPage() {
         {/* Plans */}
         <div className="grid md:grid-cols-2 gap-8">
           {/* Monthly Subscription */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border-2 border-blue-500 p-8 relative">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-xl border-2 border-blue-500 p-8 relative">
             <div className="absolute top-0 right-0 bg-blue-500 text-white px-4 py-1 rounded-bl-lg rounded-tr-xl text-sm font-semibold">
               RECOMMENDED
             </div>
             <div className="mb-6">
-              <h3 className="text-2xl font-bold mb-2">Monthly Subscription</h3>
+              <h3 className="text-2xl font-bold mb-2 text-white">Monthly Subscription</h3>
               <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-bold">$20</span>
-                <span className="text-gray-600 dark:text-gray-400">/month</span>
+                <span className="text-4xl font-bold text-white">$20</span>
+                <span className="text-white/70">/month</span>
               </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+              <p className="text-sm text-white/70 mt-2">
                 Includes 500 credits per month
               </p>
             </div>
             
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700 dark:text-gray-300">Unlimited landing pages</span>
+                <span className="text-white/80">Unlimited landing pages</span>
               </li>
               <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700 dark:text-gray-300">AI-powered chatbot</span>
+                <span className="text-white/80">AI-powered chatbot</span>
               </li>
               <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700 dark:text-gray-300">Voice call integration</span>
+                <span className="text-white/80">Voice call integration</span>
               </li>
               <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700 dark:text-gray-300">Priority support</span>
+                <span className="text-white/80">Priority support</span>
               </li>
             </ul>
 
@@ -280,39 +280,39 @@ export default function CreditsPage() {
           </div>
 
           {/* Credit Top-up */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-8">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
             <div className="mb-6">
-              <h3 className="text-2xl font-bold mb-2">Credit Top-up</h3>
+              <h3 className="text-2xl font-bold mb-2 text-white">Credit Top-up</h3>
               <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-bold">$20</span>
-                <span className="text-gray-600 dark:text-gray-400">/1000 credits</span>
+                <span className="text-4xl font-bold text-white">$20</span>
+                <span className="text-white/70">/1000 credits</span>
               </div>
             </div>
             
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700 dark:text-gray-300">One-time payment</span>
+                <span className="text-white/80">One-time payment</span>
               </li>
               <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700 dark:text-gray-300">1,000 API credits</span>
+                <span className="text-white/80">1,000 API credits</span>
               </li>
               <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700 dark:text-gray-300">No expiration</span>
+                <span className="text-white/80">No expiration</span>
               </li>
               <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700 dark:text-gray-300">Pay as you grow</span>
+                <span className="text-white/80">Pay as you grow</span>
               </li>
             </ul>
 
